@@ -1,5 +1,4 @@
 const express = require("express");
-const winston = require("winston");
 
 const app = express();
 
@@ -15,5 +14,5 @@ app.use("/answer_variables", AnswerVariablesRoute);
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, "0.0.0.0", () => {
-  winston.log(`Server listening on port: ${PORT}`);
+  console.log(`Server listening on port: ${PORT}`);
 });
