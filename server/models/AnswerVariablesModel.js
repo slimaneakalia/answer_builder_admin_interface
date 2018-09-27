@@ -19,7 +19,7 @@ function findByAnswerItems(answerItems) {
     for (let j = 0; j < variables.length; j += 1) {
       const temp = new Promise(resolve => {
         knexMySql(tableName)
-          .where(variables[i])
+          .where(variables[j])
           .then(answerVariables => {
             resolve(answerVariables);
           })
