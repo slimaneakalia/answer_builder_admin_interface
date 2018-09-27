@@ -4,6 +4,7 @@ const router = express.Router();
 const routesMiddleware = require("../middlewares/routesMiddleware.js");
 const AnswerItemsModel = require("../models/AnswerItemsModel.js");
 
+/* /answer_items routes */
 router.get("/all", (req, res) => {
   routesMiddleware.sendDBResult(res, AnswerItemsModel.getAll());
 });
