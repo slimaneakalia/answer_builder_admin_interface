@@ -9,24 +9,38 @@ function extractVariableDataObject(token) {
   };
 }
 
+function isFirstDelimiter(text, beginIndex) {
+  return (
+    text.substring(
+      beginIndex,
+      beginIndex + constants.FIRST_DELIMITER.length
+    ) === constants.FIRST_DELIMITER
+  );
+}
+
+function isSecondDelimiter(text, beginIndex) {
+  return (
+    text.substring(
+      beginIndex,
+      beginIndex + constants.SECOND_DELIMITER.length
+    ) === constants.SECOND_DELIMITER
+  );
+}
+
 function exportVariablesDataFromText(text) {
   const variablesData = [];
   let begin = -1;
   for (let index = 0; index < text.length; index += 1) {
-    const current = text.charAt(index);
-    if (current === constants.FIRST_DELIMITER) begin = index;
-    else if (current === constants.SECOND_DELIMITER && begin >= 0) {
-      const token = text.substring(begin + 1, index - 1);
+    if (isFirstDelimiter(text, index)) begin = index;
+    else if (isSecondDelimiter(text, index) && begin >= 0) {
+      const token = text
+        .substring(begin + constants.FIRST_DELIMITER.length, index)
+        .trim();
       variablesData.push(extractVariableDataObject(token));
     }
   }
-  return [
-    {
-      Name: "name",
-      _Group: "groupe",
-      SubGroup: "SubGroup"
-    }
-  ];
+
+  return variablesData;
 }
 
 module.exports = {

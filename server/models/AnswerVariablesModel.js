@@ -1,3 +1,4 @@
+const _ = require("lodash");
 const knexMySql = require("../db");
 const dbMiddleware = require("../middlewares/dbMiddleware.js");
 
@@ -8,7 +9,7 @@ function getAll() {
 }
 
 function findByAnswerItems(answerItems) {
-  const result = { items: answerItems, variables: [] };
+  const result = { items: answerItems, variables: {} };
   const promises = [];
   for (let i = 0; i < answerItems.length; i += 1) {
     const variables = dbMiddleware.exportVariablesDataFromText(
@@ -33,7 +34,20 @@ function findByAnswerItems(answerItems) {
 
   return Promise.all(promises).then(values => {
     for (let v = 0; v < values.length; v += 1) {
-      result.variables = result.variables.concat(values[v]);
+      const variableArray = values[v];
+      for (let w = 0; w < variableArray.length; w += 1) {
+        // result.variables = result.variables.concat(values[v]);
+        const variable = variableArray[w];
+        if (!result.variables[variable.AnswerVariable_UID]) {
+          result.variables[variable.AnswerVariable_UID] = _.pick(
+            variable,
+            "Name",
+            "Value",
+            "_Group",
+            "SubGroup"
+          );
+        }
+      }
     }
 
     return new Promise(resolve => resolve(result));
