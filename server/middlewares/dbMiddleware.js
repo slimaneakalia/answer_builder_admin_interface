@@ -1,3 +1,4 @@
+/* eslint no-underscore-dangle: 0 */
 const constants = require("./constants.json");
 
 function extractVariableDataObject(token) {

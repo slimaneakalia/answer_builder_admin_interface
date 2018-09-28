@@ -7,6 +7,13 @@ const routesMiddleware = require("../middlewares/routesMiddleware.js");
 const AnswerItemsModel = require("../models/AnswerItemsModel.js");
 
 /* /answer_items routes */
+
+function editField(req, res, fieldName, updateFunction) {
+  if (_.every(["AnswerItem_UUID", fieldName], _.partial(_.has, req.body)))
+    routesMiddleware.sendDBResult(res, updateFunction(req.body));
+  else res.sendStatus(400);
+}
+
 router.get("/all", (req, res) => {
   routesMiddleware.sendDBResult(res, AnswerItemsModel.getAll());
 });
@@ -73,6 +80,22 @@ router.post("/edit_item", (req, res) => {
   } else res.sendStatus(400);
 });
 
-router.post("/edit_item", (req, res) => {});
+router.post("/duplicate_item", (req, res) => {
+  const itemUUID = req.body.AnswerItem_UUID;
+  if (itemUUID) {
+    routesMiddleware.sendDBResult(
+      res,
+      AnswerItemsModel.duplicateItem(itemUUID)
+    );
+  } else res.sendStatus(400);
+});
+
+router.post("/activate_deactivate", (req, res) =>
+  editField(req, res, "Activated", AnswerItemsModel.activateDeactivate)
+);
+
+router.post("/set_as_default", (req, res) =>
+  editField(req, res, "_Default", AnswerItemsModel.setAsDefault)
+);
 
 module.exports = router;

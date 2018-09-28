@@ -55,7 +55,14 @@ function findByAnswerItems(answerItems) {
   });
 }
 
+function editVariable(variableId, newVariableData) {
+  return knexMySql(tableName)
+    .where("AnswerVariable_UID", variableId)
+    .update(newVariableData);
+}
+
 module.exports = {
   getAll,
-  findByAnswerItems
+  findByAnswerItems,
+  editVariable
 };

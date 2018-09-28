@@ -1,11 +1,10 @@
 function sendDBResult(res, dbResult) {
   dbResult
     .then(result => {
-      if (Object.keys(result).length > 0) res.send(result);
+      if (result && Object.keys(result).length > 0) res.send(result);
       else res.sendStatus(200);
     })
-    .catch(err => {
-      console.log(err);
+    .catch(() => {
       res.sendStatus(500);
     });
 }
