@@ -1,6 +1,8 @@
 const express = require("express");
+const bodyParser = require("body-parser");
 
 const app = express();
+app.use(bodyParser.json());
 
 const AnswerItemsRoute = require("./routes/AnswerItemsRoute");
 const AnswersRoute = require("./routes/AnswersRoute");

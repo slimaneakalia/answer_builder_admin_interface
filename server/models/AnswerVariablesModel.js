@@ -10,6 +10,7 @@ function getAll() {
 
 function findByAnswerItems(answerItems) {
   const result = { items: answerItems, variables: {} };
+
   const promises = [];
   for (let i = 0; i < answerItems.length; i += 1) {
     const variables = dbMiddleware.exportVariablesDataFromText(

@@ -1,4 +1,5 @@
 {
   "FIRST_DELIMITER": "<?",
-  "SECOND_DELIMITER": ">"
+  "SECOND_DELIMITER": ">",
+  "SUCCESSFUL_UPDATE_MESSAGE": "Successfully updated"
 }

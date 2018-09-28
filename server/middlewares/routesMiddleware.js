@@ -1,7 +1,13 @@
 function sendDBResult(res, dbResult) {
   dbResult
-    .then(result => res.status(200).send(result))
-    .catch(err => res.status(500).send(err));
+    .then(result => {
+      if (Object.keys(result).length > 0) res.send(result);
+      else res.sendStatus(200);
+    })
+    .catch(err => {
+      console.log(err);
+      res.sendStatus(500);
+    });
 }
 
 module.exports = {
