@@ -37,4 +37,33 @@ router.post("/simulate", (req, res) => {
   else res.sendStatus(400);
 });
 
+// Third use case
+router.get("/find", (req, res) => {
+  const { value } = req.query;
+  if (value)
+    routesMiddleware.sendDBResult(res, AnswerVariablesModel.find(value));
+  else res.sendStatus(400);
+});
+
+router.post("/add_variable", (req, res) => {
+  const requiredFields = ["Name", "Value", "_Group", "SubGroup"];
+
+  if (_.every(requiredFields, _.partial(_.has, req.body))) {
+    routesMiddleware.sendDBResult(
+      res,
+      AnswerVariablesModel.addVariable(req.body)
+    );
+  } else res.sendStatus(400);
+});
+
+router.post("/duplicate_variable", (req, res) => {
+  const variableUID = req.body.AnswerVariable_UID;
+  if (variableUID) {
+    routesMiddleware.sendDBResult(
+      res,
+      AnswerVariablesModel.duplicateVariable(variableUID)
+    );
+  } else res.sendStatus(400);
+});
+
 module.exports = router;

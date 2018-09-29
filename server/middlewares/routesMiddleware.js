@@ -1,7 +1,10 @@
 function sendDBResult(res, dbResult) {
   dbResult
-    .then(result => {
-      res.send(result);
+    .then(resultParam => {
+      const result = resultParam;
+      const type = typeof result;
+      if (type === "object") res.send(result);
+      else res.send(`${result}`);
     })
     .catch(() => {
       res.sendStatus(500);

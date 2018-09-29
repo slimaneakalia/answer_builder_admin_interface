@@ -1,3 +1,4 @@
+/* eslint no-underscore-dangle: 0 */
 const _ = require("lodash");
 const knexMySql = require("../db");
 const dbMiddleware = require("../middlewares/dbMiddleware.js");
@@ -112,9 +113,43 @@ function simulate(text) {
   });
 }
 
+function find(request) {
+  return knexMySql(tableName)
+    .where("Name", "like", `%${request}%`)
+    .orWhere("Value", "like", `%${request}%`)
+    .orWhere("_Group", "like", `%${request}%`)
+    .orWhere("SubGroup", "like", `%${request}%`);
+}
+
+function addVariable(variable) {
+  return knexMySql(tableName).insert(variable);
+}
+
+function duplicateVariable(variableUID) {
+  return new Promise((resolve, reject) => {
+    knexMySql(tableName)
+      .where("AnswerVariable_UID", variableUID)
+      .then(variables => {
+        if (variables.length > 0) {
+          const data = { ...variables[0] };
+          delete data.AnswerVariable_UID;
+          addVariable(data)
+            .then(newVariable => {
+              resolve(newVariable);
+            })
+            .catch(() => reject());
+        } else reject();
+      })
+      .catch(() => reject());
+  });
+}
+
 module.exports = {
   getAll,
   findByAnswerItems,
   editVariable,
-  simulate
+  simulate,
+  find,
+  addVariable,
+  duplicateVariable
 };

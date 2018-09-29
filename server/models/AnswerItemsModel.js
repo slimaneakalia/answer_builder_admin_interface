@@ -38,9 +38,11 @@ function duplicateItem(itemId) {
         if (items.length > 0) {
           const data = { ...items[0] };
           delete data.AnswerItem_UUID;
-          addItem(data).then(newItem => {
-            resolve(newItem);
-          });
+          addItem(data)
+            .then(newItem => {
+              resolve(newItem);
+            })
+            .catch(() => reject());
         } else reject();
       })
       .catch(() => reject());
