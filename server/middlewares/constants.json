@@ -1,5 +1,6 @@
 {
   "FIRST_DELIMITER": "<?",
   "SECOND_DELIMITER": ">",
-  "SUCCESSFUL_UPDATE_MESSAGE": "Successfully updated"
+  "SUCCESSFUL_UPDATE_MESSAGE": "Successfully updated",
+  "VARIABLE_NOT_FOUND": "VARIABLE NOT FOUND"
 }

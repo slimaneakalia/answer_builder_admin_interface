@@ -1,11 +1,12 @@
 const _ = require("lodash");
 const knexMySql = require("../db");
 const dbMiddleware = require("../middlewares/dbMiddleware.js");
+const constants = require("../middlewares/constants.json");
 
 const tableName = "answervariable";
 
 function getAll() {
-  return knexMySql(tableName);
+  return dbMiddleware.getAll(tableName);
 }
 
 function findByAnswerItems(answerItems) {
@@ -15,7 +16,7 @@ function findByAnswerItems(answerItems) {
   for (let i = 0; i < answerItems.length; i += 1) {
     const variables = dbMiddleware.exportVariablesDataFromText(
       answerItems[i].Text
-    );
+    ).data;
 
     for (let j = 0; j < variables.length; j += 1) {
       const temp = new Promise(resolve => {
@@ -61,8 +62,59 @@ function editVariable(variableId, newVariableData) {
     .update(newVariableData);
 }
 
+function getVariablesPromisesByData(data) {
+  const promises = [];
+
+  for (let j = 0; j < data.length; j += 1) {
+    const temp = new Promise(resolve2 => {
+      const index = j;
+      knexMySql(tableName)
+        .where(data[index])
+        .then(answerVariables => {
+          resolve2({ index, answerVariables });
+        })
+        .catch(() => {
+          resolve2({ index, answerVariables: [] });
+        });
+    });
+
+    promises.push(temp);
+  }
+
+  return promises;
+}
+
+function simulate(text) {
+  return new Promise((resolve, reject) => {
+    if (dbMiddleware.hasCorrectVariableFormat(text)) {
+      const variablesData = dbMiddleware.exportVariablesDataFromText(text);
+      const { data, indexes } = variablesData;
+      const promises = getVariablesPromisesByData(data);
+
+      Promise.all(promises).then(values => {
+        let result = text;
+        for (let i = 0; i < values.length; i += 1) {
+          const currentIndexes = indexes[values[i].index];
+          const token = text.substring(
+            currentIndexes.begin,
+            currentIndexes.end
+          );
+          const replacement =
+            values[i].answerVariables.length > 0
+              ? values[i].answerVariables[0].Value
+              : `{{ ${constants.VARIABLE_NOT_FOUND} }}`;
+          result = result.replace(token, replacement);
+        }
+
+        resolve(result);
+      });
+    } else reject();
+  });
+}
+
 module.exports = {
   getAll,
   findByAnswerItems,
-  editVariable
+  editVariable,
+  simulate
 };

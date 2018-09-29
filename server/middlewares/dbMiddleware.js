@@ -1,5 +1,6 @@
 /* eslint no-underscore-dangle: 0 */
 const constants = require("./constants.json");
+const knexMySql = require("../db");
 
 function extractVariableDataObject(token) {
   const array = token.split(".");
@@ -29,7 +30,8 @@ function isSecondDelimiter(text, beginIndex) {
 }
 
 function exportVariablesDataFromText(text) {
-  const variablesData = [];
+  const data = [];
+  const indexes = [];
   let begin = -1;
   for (let index = 0; index < text.length; index += 1) {
     if (isFirstDelimiter(text, index)) begin = index;
@@ -37,11 +39,16 @@ function exportVariablesDataFromText(text) {
       const token = text
         .substring(begin + constants.FIRST_DELIMITER.length, index)
         .trim();
-      variablesData.push(extractVariableDataObject(token));
+      data.push(extractVariableDataObject(token));
+      indexes.push({
+        begin,
+        end: index + constants.SECOND_DELIMITER.length
+      });
+      // To add and test : index += constants.SECOND_DELIMITER.length
     }
   }
 
-  return variablesData;
+  return { data, indexes };
 }
 
 function hasCorrectVariableFormat(text) {
@@ -59,7 +66,12 @@ function hasCorrectVariableFormat(text) {
   return begin < 0;
 }
 
+function getAll(tableName) {
+  return knexMySql(tableName);
+}
+
 module.exports = {
   exportVariablesDataFromText,
-  hasCorrectVariableFormat
+  hasCorrectVariableFormat,
+  getAll
 };

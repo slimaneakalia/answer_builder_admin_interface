@@ -1,10 +1,11 @@
 const _ = require("lodash");
 const knexMySql = require("../db");
+const dbMiddleware = require("../middlewares/dbMiddleware.js");
 
 const tableName = "answer";
 
 function getAll() {
-  return knexMySql(tableName);
+  return dbMiddleware.getAll(tableName);
 }
 
 function findByAnswerItems(data) {

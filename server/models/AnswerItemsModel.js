@@ -1,11 +1,12 @@
 const knexMySql = require("../db");
-const AnswerVariablesModel = require("./AnswerVariablesModel");
-const AnswersModel = require("./AnswersModel");
+const dbMiddleware = require("../middlewares/dbMiddleware.js");
+const AnswerVariablesModel = require("./AnswerVariablesModel.js");
+const AnswersModel = require("./AnswersModel.js");
 
 const tableName = "answeritem";
 
 function getAll() {
-  return knexMySql(tableName);
+  return dbMiddleware.getAll(tableName);
 }
 
 function getAllByText(text) {
@@ -15,25 +16,8 @@ function getAllByText(text) {
     .then(data => AnswersModel.findByAnswerItems(data));
 }
 
-function selectDistinctField(fieldName) {
-  return new Promise((resolve, reject) => {
-    knexMySql(tableName)
-      .distinct(fieldName)
-      .select()
-      .then(data => {
-        const formattedData = data.map(channel => channel[fieldName]);
-        resolve(formattedData);
-      })
-      .catch(err => reject(err));
-  });
-}
-
-function getLanguages() {
-  return selectDistinctField("Language");
-}
-
-function getChannels() {
-  return selectDistinctField("Channel");
+function getAllByAnswer(answerUID) {
+  return knexMySql(tableName).where("Answer_UID", answerUID);
 }
 
 function addItem(item) {
@@ -82,12 +66,11 @@ function setAsDefault(item) {
 module.exports = {
   getAll,
   getAllByText,
-  getLanguages,
-  getChannels,
   addItem,
   editItem,
   duplicateItem,
   activateDeactivate,
   updateField,
-  setAsDefault
+  setAsDefault,
+  getAllByAnswer
 };

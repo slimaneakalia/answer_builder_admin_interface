@@ -7,7 +7,7 @@ const routesMiddleware = require("../middlewares/routesMiddleware.js");
 const AnswerItemsModel = require("../models/AnswerItemsModel.js");
 
 /* /answer_items routes */
-
+// First use case
 function editField(req, res, fieldName, updateFunction) {
   if (_.every(["AnswerItem_UUID", fieldName], _.partial(_.has, req.body)))
     routesMiddleware.sendDBResult(res, updateFunction(req.body));
@@ -26,14 +26,6 @@ router.get("/all_by_text", (req, res) => {
       AnswerItemsModel.getAllByText(textQuery)
     );
   else res.sendStatus(400);
-});
-
-router.get("/languages", (req, res) => {
-  routesMiddleware.sendDBResult(res, AnswerItemsModel.getLanguages());
-});
-
-router.get("/channels", (req, res) => {
-  routesMiddleware.sendDBResult(res, AnswerItemsModel.getChannels());
 });
 
 router.post("/add_item", (req, res) => {
@@ -97,5 +89,16 @@ router.post("/activate_deactivate", (req, res) =>
 router.post("/set_as_default", (req, res) =>
   editField(req, res, "_Default", AnswerItemsModel.setAsDefault)
 );
+
+// Second use case
+router.get("/all_by_answer", (req, res) => {
+  const answerUID = req.query.AnswerUID;
+  if (answerUID)
+    routesMiddleware.sendDBResult(
+      res,
+      AnswerItemsModel.getAllByAnswer(answerUID)
+    );
+  else res.sendStatus(400);
+});
 
 module.exports = router;

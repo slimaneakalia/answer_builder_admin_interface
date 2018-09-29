@@ -29,4 +29,12 @@ router.post("/edit_variable", (req, res) => {
   } else res.sendStatus(400);
 });
 
+// Second use case
+router.post("/simulate", (req, res) => {
+  const { text } = req.body;
+  if (text)
+    routesMiddleware.sendDBResult(res, AnswerVariablesModel.simulate(text));
+  else res.sendStatus(400);
+});
+
 module.exports = router;
