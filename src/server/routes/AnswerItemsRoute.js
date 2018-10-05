@@ -9,9 +9,9 @@ const AnswerItemsModel = require("../models/AnswerItemsModel.js");
 /* /answer_items routes */
 // First use case
 function editField(req, res, fieldName, updateFunction) {
-  if (_.every(["AnswerItem_UUID", fieldName], _.partial(_.has, req.body)))
+  if (_.every(["AnswerItem_UUID", fieldName], _.partial(_.has, req.body))) {
     routesMiddleware.sendDBResult(res, updateFunction(req.body));
-  else res.sendStatus(400);
+  } else res.sendStatus(400);
 }
 
 router.get("/all", (req, res) => {
@@ -20,12 +20,12 @@ router.get("/all", (req, res) => {
 
 router.get("/all_by_text", (req, res) => {
   const textQuery = req.query.text;
-  if (textQuery)
+  if (textQuery) {
     routesMiddleware.sendDBResult(
       res,
       AnswerItemsModel.getAllByText(textQuery)
     );
-  else res.sendStatus(400);
+  } else res.sendStatus(400);
 });
 
 router.post("/add_item", (req, res) => {
@@ -93,12 +93,12 @@ router.post("/set_as_default", (req, res) =>
 // Second use case
 router.get("/all_by_answer", (req, res) => {
   const answerUID = req.query.AnswerUID;
-  if (answerUID)
+  if (answerUID) {
     routesMiddleware.sendDBResult(
       res,
       AnswerItemsModel.getAllByAnswer(answerUID)
     );
-  else res.sendStatus(400);
+  } else res.sendStatus(400);
 });
 
 module.exports = router;
