@@ -58,6 +58,7 @@ module.exports = {
     contentBase: assetsBase,
     port: 3000,
     open: true,
+    historyApiFallback: true,
     proxy: {
       "/api": `http://localhost:${PORT}`
     }

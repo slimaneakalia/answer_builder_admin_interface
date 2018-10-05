@@ -7098,7 +7098,7 @@ header .cm-navbar:last-child {
 .cm-menu-items li a:hover {
   color: #333333;
 }
-.cm-menu-items li.active a {
+.cm-menu-items li a.active {
   -webkit-box-shadow: inset 3px 0 0 #3498db;
   box-shadow: inset 3px 0 0 #3498db;
   color: #333333;

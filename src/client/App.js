@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
 /* 
 // Each logical "route" has two components, one for
 // the sidebar and one for the main area. We want to
@@ -91,30 +91,25 @@ const SideBar = () => (
       <div id="cm-menu-items-wrapper">
         <div id="cm-menu-scroller">
           <ul className="cm-menu-items">
-            <li className="active">
-              <a href="#" className="sf-house">
+            <li>
+              <NavLink
+                to="/"
+                exact
+                className="sf-house"
+                activeClassName="active"
+              >
                 Home
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a href="answer_items.html" className="sf-window-system">
-                Answer items
-              </a>
-            </li>
-            <li>
-              <a href="answer_codes.html" className="sf-file-code">
+              <NavLink
+                to="/codes"
+                exact
+                className="sf-file-code"
+                activeClassName="active"
+              >
                 Answer codes
-              </a>
-            </li>
-            <li>
-              <a href="answer_variables.html" className="sf-sign-sync">
-                Answer variables
-              </a>
-            </li>
-            <li>
-              <a href="commands.html" className="sf-notepad">
-                Commands
-              </a>
+              </NavLink>
             </li>
           </ul>
         </div>
@@ -123,7 +118,7 @@ const SideBar = () => (
   </div>
 );
 
-const Header = (
+const Header = () => (
   <header id="cm-header">
     <nav className="cm-navbar cm-navbar-primary">
       <div className="cm-flex">
@@ -133,12 +128,54 @@ const Header = (
   </header>
 );
 
-const Content = <div id="global">Hello it is me</div>;
+const Home = () => (
+  <div id="global">
+    <div className="anchor" id="a0" />
+
+    <div className="container-fluid cm-container-white">
+      <div className="input-group input-group-lg">
+        <input type="text" className="form-control" placeholder="Search ..." />
+        <span className="input-group-btn">
+          <button
+            style={{ zIndex: 2 }}
+            className="btn btn-primary md-search-white"
+            type="button"
+          >
+            &nbsp;&nbsp;&nbsp;&nbsp;
+          </button>
+        </span>
+      </div>
+      <br />
+      Hello Home
+    </div>
+  </div>
+);
+
+const Codes = () => (
+  <div id="global">
+    <div className="anchor" id="a0" />
+
+    <div className="container-fluid cm-container-white">
+      <b>Hello Codes</b>
+    </div>
+  </div>
+);
+
+const CurrentTab = () => (
+  <React.Fragment>
+    <Route path="/" exact component={Home} />
+    <Route path="/codes" exact component={Codes} />
+  </React.Fragment>
+);
 
 const SidebarExample = () => (
-  <React.Fragment>
-    <div>Said</div>
-  </React.Fragment>
+  <Router>
+    <React.Fragment>
+      <SideBar />
+      <Header />
+      <CurrentTab />
+    </React.Fragment>
+  </Router>
 );
 
 export default SidebarExample;
