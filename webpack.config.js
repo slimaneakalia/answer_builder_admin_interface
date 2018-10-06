@@ -6,9 +6,10 @@ const CleanWebpackPlugin = require("clean-webpack-plugin");
 
 const outputDirectory = "dist";
 const PORT = process.env.PORT || 4000;
+
 const clientDir = path.join(__dirname, "src", "client");
-const assetsBase = path.join(__dirname, "public", "assets");
 const publicDir = path.join(__dirname, "public");
+const assetsBase = path.join(publicDir, "assets");
 
 const cssFiles = [
   "css/bootstrap-clearmin.css",
@@ -81,5 +82,8 @@ module.exports = {
       assets: cssFiles,
       append: true
     })
-  ]
+  ],
+  performance: {
+    maxAssetSize: 400000
+  }
 };

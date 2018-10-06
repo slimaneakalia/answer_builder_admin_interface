@@ -11,8 +11,8 @@ const LanguagesRoute = require("./routes/LanguagesRoute.js");
 const ChannelsRoute = require("./routes/ChannelsRoute.js");
 const CommandsRoute = require("./routes/CommandsRoute.js");
 
-app.use(express.static("dist"));
-app.use(express.static(__dirname));
+/* app.use(express.static("dist"));
+app.use(express.static(__dirname)); */
 
 app.use("/answer_items", AnswerItemsRoute);
 app.use("/answers", AnswersRoute);

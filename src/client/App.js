@@ -129,7 +129,7 @@ const Header = () => (
 );
 
 const Home = () => (
-  <div id="global">
+  <React.Fragment>
     <div className="anchor" id="a0" />
 
     <div className="container-fluid cm-container-white">
@@ -148,23 +148,26 @@ const Home = () => (
       <br />
       Hello Home
     </div>
-  </div>
+  </React.Fragment>
 );
 
 const Codes = () => (
-  <div id="global">
+  <React.Fragment>
     <div className="anchor" id="a0" />
 
     <div className="container-fluid cm-container-white">
       <b>Hello Codes</b>
     </div>
-  </div>
+  </React.Fragment>
 );
 
 const CurrentTab = () => (
   <React.Fragment>
-    <Route path="/" exact component={Home} />
-    <Route path="/codes" exact component={Codes} />
+    <Header />
+    <div id="global">
+      <Route path="/" exact component={Home} />
+      <Route path="/codes" exact component={Codes} />
+    </div>
   </React.Fragment>
 );
 
@@ -172,7 +175,6 @@ const SidebarExample = () => (
   <Router>
     <React.Fragment>
       <SideBar />
-      <Header />
       <CurrentTab />
     </React.Fragment>
   </Router>
