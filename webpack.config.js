@@ -90,12 +90,13 @@ module.exports = {
     maxEntrypointSize: 400000
   },
   resolve: {
-    modules: [path.resolve("./node_modules")],
+    modules: ["node_modules"],
     extensions: [".js", ".jsx", ".json"],
     alias: {
       _tabs: tabsDir,
       _home: path.resolve(tabsDir, "HomeTab"),
       _shared: path.resolve(tabsDir, "Shared")
     }
-  }
+  },
+  devtool: "source-map"
 };
