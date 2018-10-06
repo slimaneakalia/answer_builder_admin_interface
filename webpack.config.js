@@ -29,6 +29,8 @@ const jsFiles = [
   "js/clearmin.min.js"
 ];
 
+const tabsDir = path.resolve(clientDir, "Tabs");
+
 module.exports = {
   entry: path.join(clientDir, "/index.js"),
   output: {
@@ -39,7 +41,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader"
@@ -84,6 +86,16 @@ module.exports = {
     })
   ],
   performance: {
-    maxAssetSize: 400000
+    maxAssetSize: 400000,
+    maxEntrypointSize: 400000
+  },
+  resolve: {
+    modules: [path.resolve("./node_modules")],
+    extensions: [".js", ".jsx", ".json"],
+    alias: {
+      _tabs: tabsDir,
+      _home: path.resolve(tabsDir, "HomeTab"),
+      _shared: path.resolve(tabsDir, "Shared")
+    }
   }
 };

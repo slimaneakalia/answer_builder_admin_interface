@@ -1,5 +1,5 @@
 import React from "react";
-import SearchBar from "../Components/SearchBar";
+import SearchBar from "_shared/Components/SearchBar";
 
 const onSearchClick = e => {
   console.log("New event was detected !");
