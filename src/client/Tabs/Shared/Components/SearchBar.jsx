@@ -10,7 +10,7 @@ const SearchBar = ({ label, placeholder, onSearchClick }) => {
           style={{ zIndex: 2 }}
           className="btn btn-primary md-search-white"
           type="button"
-          onClick={{ onSearchClick }}
+          onClick={onSearchClick}
         >
           &nbsp;&nbsp;&nbsp;&nbsp;
         </button>

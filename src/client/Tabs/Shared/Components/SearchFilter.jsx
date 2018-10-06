@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function createFilterItem(item, idKey, textkey, updateFilter) {
+function createFilterItem(item, id, textkey, updateFilter) {
   const classNames = item.selected
     ? ["btn-primary", "fa-close"]
     : ["btn-danger", "fa-plus"];
@@ -9,8 +9,9 @@ function createFilterItem(item, idKey, textkey, updateFilter) {
     <button
       type="button"
       className={`btn ${classNames[0]}`}
-      key={item[idKey]}
+      key={id}
       onClick={updateFilter}
+      style={{ marginRight: "10px" }}
     >
       {item[textkey]} &nbsp;&nbsp;
       <i className={`fa ${classNames[1]}`} />
@@ -18,10 +19,11 @@ function createFilterItem(item, idKey, textkey, updateFilter) {
   );
 }
 
-const SearchFilter = ({ label, data, idKey, textkey, updateFilter }) => {
-  const buttons = data.map(item =>
-    createFilterItem(item, idKey, textkey, updateFilter)
+const SearchFilter = ({ label, data, textkey, updateFilter }) => {
+  const buttons = Object.keys(data).map(key =>
+    createFilterItem(data[key], key, textkey, updateFilter)
   );
+
   return (
     <React.Fragment>
       <h2 style={{ marginTop: 0 }}>{label}</h2>
@@ -33,7 +35,6 @@ const SearchFilter = ({ label, data, idKey, textkey, updateFilter }) => {
 SearchFilter.propTypes = {
   label: PropTypes.string.isRequired,
   data: PropTypes.isRequired,
-  idKey: PropTypes.string.isRequired,
   textkey: PropTypes.string.isRequired,
   updateFilter: PropTypes.isRequired
 };
