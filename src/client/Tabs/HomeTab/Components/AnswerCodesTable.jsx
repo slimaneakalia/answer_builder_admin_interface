@@ -1,6 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import SmartTD from "_shared/Components/SmartTD";
+import Button from "_shared/Components/Button";
+
+function getFromRow(row, field) {
+  return row.refs[field].current;
+}
 
 class AnswerCodesTable extends React.Component {
   constructor(props) {
@@ -8,52 +13,75 @@ class AnswerCodesTable extends React.Component {
     this.rows = {};
   }
 
-  remove = e => {
-    const targetUID = e.target.getAttribute("answerCodeUID");
+  remove = event => {
+    const targetUID = event.currentTarget.getAttribute("uid");
+
     const row = this.rows[targetUID];
     if (row) {
       delete this.rows[targetUID];
       const { remove } = this.props;
-      remove(targetUID, row.code.getValue(), row.description.getValue());
+      remove(targetUID);
     }
   };
 
-  editOrSave = e => {
-    const targetUID = e.target.getAttribute("answerCodeUID");
+  editOrSave = event => {
+    const targetUID = event.currentTarget.getAttribute("uid");
     const row = this.rows[targetUID];
 
     if (row) {
-      if (row.code.isEditable()) {
+      if (getFromRow(row, "Code").isEditable()) {
         const { editAnswerCode } = this.props;
         editAnswerCode(
           targetUID,
-          row.code.getValue(),
-          row.description.getValue()
+          getFromRow(row, "Code").getValue(),
+          getFromRow(row, "Description").getValue()
         );
       }
 
-      Object.values(row).forEach(smartTD => {
-        if (smartTD) smartTD.inverseEditableState();
-      });
+      const refs = Object.values(row.refs);
+      for (let i = 0; i < refs.length; i += 1) {
+        if (refs[i]) refs[i].current.inverseEditableState();
+      }
+
+      this.forceUpdate();
     }
   };
 
-  creatingNewAnswerItem = e => {
-    console.log("Adding answerCode");
-    console.log(e);
+  creatingNewAnswerItem = event => {
+    const targetUID = event.currentTarget.getAttribute("uid");
+    console.log(`Adding answerItem to the following answerCode : ${targetUID}`);
   };
 
   createAnswerCodeItem = (answerData, answerCodeUID) => {
     let className = "glyphicon glyphicon-pencil";
     let rowColumns;
+
     if (this.rows[answerCodeUID]) {
       rowColumns = this.rows[answerCodeUID];
-      className = rowColumns.row.isEditable();
+
+      if (getFromRow(rowColumns, "Code").isEditable()) {
+        className = "glyphicon glyphicon-floppy-disk";
+      }
     } else {
+      const refs = {
+        Code: React.createRef(),
+        Description: React.createRef()
+      };
       rowColumns = {
-        code: <SmartTD contentEditable={false} value={answerData.code} />,
-        description: (
-          <SmartTD contentEditable={false} value={answerData.description} />
+        refs,
+        Code: (
+          <SmartTD
+            ref={refs.Code}
+            contentEditable={false}
+            value={answerData.Code}
+          />
+        ),
+        Description: (
+          <SmartTD
+            ref={refs.Description}
+            contentEditable={false}
+            value={answerData.Description}
+          />
         )
       };
       this.rows[answerCodeUID] = rowColumns;
@@ -61,34 +89,22 @@ class AnswerCodesTable extends React.Component {
 
     return (
       <tr>
-        {rowColumns.code}
-        {rowColumns.description}
+        {rowColumns.Code}
+        {rowColumns.Description}
         <td>
-          <button
-            type="button"
-            onClick={this.editOrSave}
-            answerCodeUID={answerCodeUID}
-          >
+          <Button onClick={this.editOrSave} uid={answerCodeUID}>
             <span className={className} />
-          </button>
+          </Button>
         </td>
         <td>
-          <button
-            type="button"
-            onClick={this.remove}
-            answerCodeUID={answerCodeUID}
-          >
+          <Button onClick={this.remove} uid={answerCodeUID}>
             <span className="glyphicon glyphicon-remove" />
-          </button>
+          </Button>
         </td>
         <td>
-          <button
-            type="button"
-            onClick={this.creatingNewAnswerItem}
-            answerCodeUID={answerCodeUID}
-          >
+          <Button onClick={this.creatingNewAnswerItem} uid={answerCodeUID}>
             <span className="glyphicon glyphicon-paperclip" />
-          </button>
+          </Button>
         </td>
       </tr>
     );

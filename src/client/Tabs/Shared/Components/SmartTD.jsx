@@ -5,33 +5,27 @@ export default class SmartTD extends React.Component {
   constructor(props) {
     super(props);
     const { value, contentEditable } = this.props;
-    this.state = { value, contentEditable };
+    this.contentEditable = contentEditable;
+    this.value = value;
   }
 
   handleChange = e => {
-    this.setState({ value: e.target.innerText });
+    this.value = e.target.innerText;
   };
 
-  getValue = () => {
-    const { value } = this.state;
-    return value;
-  };
+  getValue = () => this.value;
 
-  isEditable = () => {
-    const { contentEditable } = this.state;
-    return contentEditable;
-  };
+  isEditable = () => this.contentEditable;
 
   inverseEditableState = () => {
-    const { contentEditable } = this.state;
-    this.setState({ contentEditable: !contentEditable });
+    this.contentEditable = !this.contentEditable;
+    this.forceUpdate();
   };
 
   render() {
-    const { value, contentEditable } = this.state;
     return (
-      <td contentEditable={contentEditable} onKeyUp={this.handleChange}>
-        {value}
+      <td contentEditable={this.contentEditable} onKeyUp={this.handleChange}>
+        {this.value}
       </td>
     );
   }
