@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import SmartTD from "_shared/Components/SmartTD";
 import Button from "_shared/Components/Button";
+import CreateNewAnswerItemModal from "_home/Components/CreateNewAnswerItemModal";
 
 function getFromRow(row, field) {
   return row.refs[field].current;
@@ -11,6 +12,7 @@ class AnswerCodesTable extends React.Component {
   constructor(props) {
     super(props);
     this.rows = {};
+    this.state = { addAnswerItem: false, targetAnswerCodeUID: null };
   }
 
   remove = event => {
@@ -48,8 +50,9 @@ class AnswerCodesTable extends React.Component {
   };
 
   creatingNewAnswerItem = event => {
+    event.preventDefault();
     const targetUID = event.currentTarget.getAttribute("uid");
-    console.log(`Adding answerItem to the following answerCode : ${targetUID}`);
+    this.setState({ addAnswerItem: true, targetAnswerCodeUID: targetUID });
   };
 
   createAnswerCodeItem = (answerData, answerCodeUID) => {
@@ -110,25 +113,39 @@ class AnswerCodesTable extends React.Component {
     );
   };
 
+  closedAddAnswerItemModal = () => {
+    this.setState({ addAnswerItem: false, targetAnswerCodeUID: null });
+  };
+
   render() {
     const { data } = this.props;
+    const { addAnswerItem, targetAnswerCodeUID } = this.state;
+
     const rows = Object.keys(data).map(key =>
       this.createAnswerCodeItem(data[key], key)
     );
 
     return (
-      <table className="table table-bordered table-hover table-striped codes-table">
-        <thead>
-          <tr>
-            <th>Answer code</th>
-            <th>Description</th>
-            <th>Edit</th>
-            <th>Remove</th>
-            <th>Create new item</th>
-          </tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </table>
+      <React.Fragment>
+        <table className="table table-bordered table-hover table-striped codes-table">
+          <thead>
+            <tr>
+              <th>Answer code</th>
+              <th>Description</th>
+              <th>Edit</th>
+              <th>Remove</th>
+              <th>Create new item</th>
+            </tr>
+          </thead>
+          <tbody>{rows}</tbody>
+        </table>
+        {addAnswerItem && (
+          <CreateNewAnswerItemModal
+            AnswerCodeUID={targetAnswerCodeUID}
+            closedModal={this.closedAddAnswerItemModal}
+          />
+        )}
+      </React.Fragment>
     );
   }
 }
