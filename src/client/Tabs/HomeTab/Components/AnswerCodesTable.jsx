@@ -118,7 +118,13 @@ class AnswerCodesTable extends React.Component {
   };
 
   render() {
-    const { data } = this.props;
+    const {
+      data,
+      languages,
+      channels,
+      checkDescription,
+      createNewAnswerItem
+    } = this.props;
     const { addAnswerItem, targetAnswerCodeUID } = this.state;
 
     const rows = Object.keys(data).map(key =>
@@ -141,8 +147,12 @@ class AnswerCodesTable extends React.Component {
         </table>
         {addAnswerItem && (
           <CreateNewAnswerItemModal
-            AnswerCodeUID={targetAnswerCodeUID}
+            answerCodeUID={targetAnswerCodeUID}
             closedModal={this.closedAddAnswerItemModal}
+            languages={languages}
+            channels={channels}
+            createNewAnswerItem={createNewAnswerItem}
+            checkDescription={checkDescription}
           />
         )}
       </React.Fragment>
@@ -152,11 +162,10 @@ class AnswerCodesTable extends React.Component {
 
 AnswerCodesTable.propTypes = {
   data: PropTypes.string.isRequired,
-  /* channels: PropTypes.isRequired,
+  channels: PropTypes.isRequired,
   languages: PropTypes.isRequired,
   createNewAnswerItem: PropTypes.isRequired,
   checkDescription: PropTypes.isRequired,
-  */
   remove: PropTypes.isRequired,
   editAnswerCode: PropTypes.isRequired
 };

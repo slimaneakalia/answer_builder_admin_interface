@@ -7,6 +7,15 @@ const data = {
   answerUID2: { Code: "Deuxième Code", Description: "Deuxième description" }
 };
 
+const channels = {
+  WEB: { Channel_label: "WEB", selected: false },
+  TWITTER: { Channel_label: "TWITTER", selected: true }
+};
+
+const languages = {
+  FR: { Language_label: "FR", selected: false },
+  EN: { Language_label: "EN", selected: true }
+};
 const remove = answerCodeUID => {
   console.log(`UID to remove : ${answerCodeUID}`);
 };
@@ -18,11 +27,30 @@ const editAnswerCode = (answerCodeUID, code, description) => {
   console.log(`description : ${description}`);
 };
 
+const createNewAnswerItem = answerItemData => {
+  console.log("New AnswerItem to add :");
+  console.log(answerItemData);
+  return new Promise((resolve, reject) => {
+    reject("Internal Server error : Minoucha");
+  });
+};
+
+const checkDescription = text =>
+  new Promise((resolve, reject) => {
+    console.log(`${text} is not verified`);
+    // resolve();
+    reject("Description error : Minoucha");
+  });
+
 const Component = () => (
   <AnswerCodesTable
     editAnswerCode={editAnswerCode}
     remove={remove}
     data={data}
+    channels={channels}
+    languages={languages}
+    createNewAnswerItem={createNewAnswerItem}
+    checkDescription={checkDescription}
   />
 );
 
