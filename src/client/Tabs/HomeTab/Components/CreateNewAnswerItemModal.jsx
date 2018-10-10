@@ -11,14 +11,17 @@ class CreateNewAnswerItemModal extends React.Component {
   constructor(props) {
     super(props);
     const { languages, channels } = props;
-    const Language = languages && languages.length ? languages[0] : null;
-    const Channel = channels && channels.length ? channels[0] : null;
+    const languageUIDs = Object.keys(languages);
+    const channelUIDs = Object.keys(channels);
+    const Language = languageUIDs.length ? languageUIDs[0] : null;
+    const Channel = channelUIDs.length ? channelUIDs[0] : null;
     this.state = {
       show: true,
       Name: null,
       Text: null,
       Activated: false,
       _Default: false,
+      cofirmEnabled: true,
       fieldErrors: {},
       globalErrors: [],
       Language,
@@ -32,13 +35,18 @@ class CreateNewAnswerItemModal extends React.Component {
     this.checkFields()
       .then(() => {
         const answerItemData = this.getDataFromFields();
-        createNewAnswerItem(answerItemData)
-          .then(() => this.setState({ show: false }))
-          .catch(error => {
-            const { globalErrors } = this.state;
-            const newGlobalErrors = [...globalErrors, error];
-            this.setState({ globalErrors: newGlobalErrors });
-          });
+        this.setState({ cofirmEnabled: false }, () => {
+          createNewAnswerItem(answerItemData)
+            .then(() => this.setState({ show: false }))
+            .catch(error => {
+              const { globalErrors } = this.state;
+              const newGlobalErrors = [...globalErrors, error];
+              this.setState({
+                globalErrors: newGlobalErrors,
+                cofirmEnabled: true
+              });
+            });
+        });
       })
       .catch(() => {});
   };
@@ -67,7 +75,7 @@ class CreateNewAnswerItemModal extends React.Component {
     const { Name, Text } = this.state;
     let test = true;
     return new Promise((resolve, reject) => {
-      this.setState({ fieldErrors: {} }, () => {
+      this.setState({ fieldErrors: {}, globalErrors: [] }, () => {
         this.checkRequiredField("Text", Text, TEXT_IS_REQUIRED)
           .catch(() => {
             test = false;
@@ -158,7 +166,12 @@ class CreateNewAnswerItemModal extends React.Component {
     const { globalErrors } = this.state;
     if (globalErrors.length > 0) {
       const errorDivs = this.mapArrayToErrorDivs(globalErrors);
-      return <div className="form-group has-error">{errorDivs}</div>;
+      return (
+        <div className="form-group has-error">
+          <div className="col-sm-2" />
+          <div className="col-sm-10">{errorDivs}</div>
+        </div>
+      );
     }
     return null;
   };
@@ -172,24 +185,26 @@ class CreateNewAnswerItemModal extends React.Component {
       Channel,
       Text,
       Activated,
-      _Default
+      _Default,
+      cofirmEnabled
     } = this.state;
     const newPrpps = {
       title: "Create new Answer Item",
-      cofirmEnabled: true,
+      cofirmEnabled,
       onConfirm: this.onConfirm,
       onClose: this.onClose
     };
 
     const languagesSelect = Object.keys(languages).map(key => (
-      <option
-        value={languages[key].Language_label}
-        selected={key === Language}
-      />
+      <option key={key} value={key} selected={key === Language}>
+        {languages[key].Language_label}
+      </option>
     ));
 
     const channelsSelect = Object.keys(channels).map(key => (
-      <option value={channels[key].Channel_label} selected={key === Channel} />
+      <option key={key} value={key} selected={key === Channel}>
+        {channels[key].Channel_label}
+      </option>
     ));
 
     return (
@@ -251,6 +266,7 @@ class CreateNewAnswerItemModal extends React.Component {
                   id="Text"
                   className="form-control"
                   onChange={this.handleChange}
+                  style={{ resize: "none" }}
                 >
                   {Text}
                 </textarea>

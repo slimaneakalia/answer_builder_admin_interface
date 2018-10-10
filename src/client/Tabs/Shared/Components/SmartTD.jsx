@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+const UNSELECTED_BACKGROUND_COLOR = "#c2c2c2";
 export default class SmartTD extends React.Component {
   constructor(props) {
     super(props);
@@ -23,8 +24,19 @@ export default class SmartTD extends React.Component {
   };
 
   render() {
+    const tdStyle = !this.contentEditable
+      ? { backgroundColor: UNSELECTED_BACKGROUND_COLOR }
+      : null;
+
+    console.log(`this.contentEditable : ${this.contentEditable}`);
+    console.log(`tdStyle`);
+    console.log(tdStyle);
     return (
-      <td contentEditable={this.contentEditable} onKeyUp={this.handleChange}>
+      <td
+        contentEditable={this.contentEditable}
+        onKeyUp={this.handleChange}
+        style={tdStyle}
+      >
         {this.value}
       </td>
     );

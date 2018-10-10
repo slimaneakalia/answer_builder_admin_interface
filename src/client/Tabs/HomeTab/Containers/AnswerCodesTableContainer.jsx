@@ -36,10 +36,10 @@ const createNewAnswerItem = answerItemData => {
 };
 
 const checkDescription = text =>
-  new Promise((resolve, reject) => {
-    console.log(`${text} is not verified`);
-    // resolve();
-    reject("Description error : Minoucha");
+  new Promise(resolve => {
+    console.log(`${text} is verified`);
+    resolve();
+    // reject("Description error : Minoucha");
   });
 
 const Component = () => (
