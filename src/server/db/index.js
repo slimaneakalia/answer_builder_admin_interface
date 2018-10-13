@@ -1,3 +1,6 @@
+/* 
+	* @author{Slimane AKALIA} slimaneakalia@gmail.com, Linkedin.com/in/slimaneakalia
+*/
 const knex = require("knex");
 const dbConfig = require("../config/db_config.json");
 

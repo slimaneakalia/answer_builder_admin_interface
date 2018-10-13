@@ -1,3 +1,6 @@
+/* 
+	* @author{Slimane AKALIA} slimaneakalia@gmail.com, Linkedin.com/in/slimaneakalia
+*/
 const tableName = "command";
 const dbMiddleware = require("../middlewares/dbMiddleware.js");
 const knexMySql = require("../db");

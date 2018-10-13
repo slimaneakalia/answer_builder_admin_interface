@@ -1,3 +1,6 @@
+/* 
+	* @author{Slimane AKALIA} slimaneakalia@gmail.com, Linkedin.com/in/slimaneakalia
+*/
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import HomeTab from "_home";

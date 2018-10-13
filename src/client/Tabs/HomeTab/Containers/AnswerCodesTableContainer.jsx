@@ -1,3 +1,6 @@
+/* 
+	* @author{Slimane AKALIA} slimaneakalia@gmail.com, Linkedin.com/in/slimaneakalia
+*/
 import React from "react";
 import AnswerCodesTable from "_home/Components/AnswerCodesTable";
 import WrapTableContainer from "_shared/Containers/WrapTableContainer";
@@ -30,8 +33,18 @@ const editAnswerCode = (answerCodeUID, code, description) => {
 const createNewAnswerItem = answerItemData => {
   console.log("New AnswerItem to add :");
   console.log(answerItemData);
-  return new Promise((resolve, reject) => {
-    reject("Internal Server error : Minoucha");
+  return new Promise(resolve => {
+    resolve();
+    // reject("Internal Server error : Minoucha");
+  });
+};
+
+const createNewAnswerCode = answerCodeData => {
+  console.log("New AnswerCode to add :");
+  console.log(answerCodeData);
+  return new Promise(resolve => {
+    resolve();
+    // reject("Internal Server error : Minoucha");
   });
 };
 
@@ -50,7 +63,9 @@ const Component = () => (
     channels={channels}
     languages={languages}
     createNewAnswerItem={createNewAnswerItem}
+    createNewAnswerCode={createNewAnswerCode}
     checkDescription={checkDescription}
+    withAddItemButton
   />
 );
 

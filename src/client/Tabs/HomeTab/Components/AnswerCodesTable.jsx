@@ -1,8 +1,13 @@
+/* 
+	* @author{Slimane AKALIA} slimaneakalia@gmail.com, Linkedin.com/in/slimaneakalia
+*/
 import React from "react";
 import PropTypes from "prop-types";
 import SmartTD from "_shared/Components/SmartTD";
 import Button from "_shared/Components/Button";
 import CreateNewAnswerItemModal from "_home/Components/CreateNewAnswerItemModal";
+import CreateNewAnswerCodeModal from "_home/Components/CreateNewAnswerCodeModal";
+import AddItemButton from "_shared/Components/AddItemButton";
 
 function getFromRow(row, field) {
   return row.refs[field].current;
@@ -12,7 +17,11 @@ class AnswerCodesTable extends React.Component {
   constructor(props) {
     super(props);
     this.rows = {};
-    this.state = { addAnswerItem: false, targetAnswerCodeUID: null };
+    this.state = {
+      addAnswerItem: false,
+      targetAnswerCodeUID: null,
+      addAnswerCode: false
+    };
   }
 
   remove = event => {
@@ -113,8 +122,16 @@ class AnswerCodesTable extends React.Component {
     );
   };
 
+  addAnswerCode = () => {
+    this.setState({ addAnswerCode: true });
+  };
+
   closedAddAnswerItemModal = () => {
     this.setState({ addAnswerItem: false, targetAnswerCodeUID: null });
+  };
+
+  closedAddAnswerCodeModal = () => {
+    this.setState({ addAnswerCode: false });
   };
 
   render() {
@@ -123,9 +140,11 @@ class AnswerCodesTable extends React.Component {
       languages,
       channels,
       checkDescription,
-      createNewAnswerItem
+      createNewAnswerItem,
+      createNewAnswerCode,
+      withAddItemButton
     } = this.props;
-    const { addAnswerItem, targetAnswerCodeUID } = this.state;
+    const { addAnswerItem, targetAnswerCodeUID, addAnswerCode } = this.state;
 
     const rows = Object.keys(data).map(key =>
       this.createAnswerCodeItem(data[key], key)
@@ -145,6 +164,11 @@ class AnswerCodesTable extends React.Component {
           </thead>
           <tbody>{rows}</tbody>
         </table>
+        {withAddItemButton && (
+          <AddItemButton onClick={this.addAnswerCode}>
+            Add new Answer Code
+          </AddItemButton>
+        )}
         {addAnswerItem && (
           <CreateNewAnswerItemModal
             answerCodeUID={targetAnswerCodeUID}
@@ -153,6 +177,13 @@ class AnswerCodesTable extends React.Component {
             channels={channels}
             createNewAnswerItem={createNewAnswerItem}
             checkDescription={checkDescription}
+          />
+        )}
+
+        {addAnswerCode && (
+          <CreateNewAnswerCodeModal
+            createNewAnswerCode={createNewAnswerCode}
+            closedModal={this.closedAddAnswerCodeModal}
           />
         )}
       </React.Fragment>
@@ -164,7 +195,9 @@ AnswerCodesTable.propTypes = {
   data: PropTypes.string.isRequired,
   channels: PropTypes.isRequired,
   languages: PropTypes.isRequired,
+  withAddItemButton: PropTypes.bool.isRequired,
   createNewAnswerItem: PropTypes.isRequired,
+  createNewAnswerCode: PropTypes.isRequired,
   checkDescription: PropTypes.isRequired,
   remove: PropTypes.isRequired,
   editAnswerCode: PropTypes.isRequired

@@ -1,3 +1,6 @@
+/* 
+	* @author{Slimane AKALIA} slimaneakalia@gmail.com, Linkedin.com/in/slimaneakalia
+*/
 const tableName = "language";
 const dbMiddleware = require("../middlewares/dbMiddleware.js");
 

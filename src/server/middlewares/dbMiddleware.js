@@ -1,3 +1,6 @@
+/* 
+	* @author{Slimane AKALIA} slimaneakalia@gmail.com, Linkedin.com/in/slimaneakalia
+*/
 /* eslint no-underscore-dangle: 0 */
 const constants = require("./constants.json");
 const knexMySql = require("../db");

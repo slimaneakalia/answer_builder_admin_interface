@@ -1,3 +1,6 @@
+/* 
+	* @author{Slimane AKALIA} slimaneakalia@gmail.com, Linkedin.com/in/slimaneakalia
+*/
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import PropTypes from "prop-types";

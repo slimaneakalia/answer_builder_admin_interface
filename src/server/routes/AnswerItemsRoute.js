@@ -1,3 +1,6 @@
+/* 
+	* @author{Slimane AKALIA} slimaneakalia@gmail.com, Linkedin.com/in/slimaneakalia
+*/
 const express = require("express");
 const _ = require("lodash");
 const { hasCorrectVariableFormat } = require("../middlewares/dbMiddleware.js");

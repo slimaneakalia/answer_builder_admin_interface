@@ -1,3 +1,6 @@
+/* 
+	* @author{Slimane AKALIA} slimaneakalia@gmail.com, Linkedin.com/in/slimaneakalia
+*/
 /* eslint no-underscore-dangle: 0 */
 const _ = require("lodash");
 const knexMySql = require("../db");

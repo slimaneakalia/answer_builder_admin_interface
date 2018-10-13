@@ -1,3 +1,6 @@
+/* 
+	* @author{Slimane AKALIA} slimaneakalia@gmail.com, Linkedin.com/in/slimaneakalia
+*/
 function sendDBResult(res, dbResult) {
   dbResult
     .then(resultParam => {

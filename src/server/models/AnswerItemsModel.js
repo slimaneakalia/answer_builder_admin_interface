@@ -1,3 +1,6 @@
+/* 
+	* @author{Slimane AKALIA} slimaneakalia@gmail.com, Linkedin.com/in/slimaneakalia
+*/
 const knexMySql = require("../db");
 const dbMiddleware = require("../middlewares/dbMiddleware.js");
 const AnswerVariablesModel = require("./AnswerVariablesModel.js");

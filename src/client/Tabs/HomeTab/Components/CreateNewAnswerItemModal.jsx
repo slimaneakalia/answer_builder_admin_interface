@@ -1,3 +1,6 @@
+/* 
+	* @author{Slimane AKALIA} slimaneakalia@gmail.com, Linkedin.com/in/slimaneakalia
+*/
 import React from "react";
 import Modal from "_shared/Components/Modal";
 import PropTypes from "prop-types";
@@ -26,6 +29,12 @@ class CreateNewAnswerItemModal extends React.Component {
       globalErrors: [],
       Language,
       Channel
+    };
+
+    this.newProps = {
+      title: "Create new Answer Item",
+      onConfirm: this.onConfirm,
+      onClose: this.onClose
     };
   }
 
@@ -188,13 +197,6 @@ class CreateNewAnswerItemModal extends React.Component {
       _Default,
       cofirmEnabled
     } = this.state;
-    const newPrpps = {
-      title: "Create new Answer Item",
-      cofirmEnabled,
-      onConfirm: this.onConfirm,
-      onClose: this.onClose
-    };
-
     const languagesSelect = Object.keys(languages).map(key => (
       <option key={key} value={key} selected={key === Language}>
         {languages[key].Language_label}
@@ -209,7 +211,7 @@ class CreateNewAnswerItemModal extends React.Component {
 
     return (
       show && (
-        <Modal {...newPrpps} show={show}>
+        <Modal cofirmEnabled={cofirmEnabled} {...this.newProps} show>
           <form className="form-horizontal">
             <div className={this.createDivClassName("Name")}>
               <label htmlFor="Name" className="col-sm-2 control-label">
