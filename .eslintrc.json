@@ -12,6 +12,7 @@
     "node": true
   },
   "rules": {
+    "no-underscore-dangle": "off",
     "no-duplicate-imports": "off",
     "linebreak-style": ["error", "windows"],
     "react/jsx-filename-extension": "off",

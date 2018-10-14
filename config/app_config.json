@@ -1,0 +1,5 @@
+{
+  "SERVER_PORT": 4000,
+  "CLIENT_PORT": 3000,
+  "SERVER_HOST": "http://localhost"
+}

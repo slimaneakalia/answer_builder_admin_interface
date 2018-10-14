@@ -4,9 +4,15 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackIncludeAssetsPlugin = require("html-webpack-include-assets-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 
-const outputDirectory = "dist";
-const PORT = process.env.PORT || 4000;
+const {
+  CLIENT_PORT,
+  SERVER_PORT,
+  SERVER_HOST
+} = require("./config/app_config.json");
 
+const outputDirectory = "dist";
+
+const configDir = path.join(__dirname, "config");
 const clientDir = path.join(__dirname, "src", "client");
 const publicDir = path.join(__dirname, "public");
 const assetsBase = path.join(publicDir, "assets");
@@ -30,6 +36,8 @@ const jsFiles = [
 ];
 
 const tabsDir = path.resolve(clientDir, "Tabs");
+const actionCreatorsDir = path.resolve(clientDir, "ActionCreators");
+const reducersDir = path.resolve(clientDir, "Reducers");
 
 module.exports = {
   entry: path.join(clientDir, "/index.js"),
@@ -59,11 +67,14 @@ module.exports = {
   },
   devServer: {
     contentBase: assetsBase,
-    port: 3000,
+    port: CLIENT_PORT,
     open: true,
     historyApiFallback: true,
     proxy: {
-      "/api": `http://localhost:${PORT}`
+      "/api/*": {
+        target: `${SERVER_HOST}:${SERVER_PORT}`,
+        pathRewrite: { "^/api": "" }
+      }
     }
   },
   plugins: [
@@ -93,6 +104,9 @@ module.exports = {
     modules: ["node_modules"],
     extensions: [".js", ".jsx", ".json"],
     alias: {
+      _config: configDir,
+      _action_creators: actionCreatorsDir,
+      _reducers: reducersDir,
       _tabs: tabsDir,
       _home: path.resolve(tabsDir, "HomeTab"),
       _codes: path.resolve(tabsDir, "CodesTab"),

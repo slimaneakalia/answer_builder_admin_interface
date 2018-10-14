@@ -4,6 +4,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 
+const { SERVER_PORT } = require("../../config/app_config.json");
+
 const app = express();
 app.use(bodyParser.json());
 
@@ -24,8 +26,6 @@ app.use("/languages", LanguagesRoute);
 app.use("/channels", ChannelsRoute);
 app.use("/commands", CommandsRoute);
 
-const PORT = process.env.PORT || 4000;
-
-app.listen(PORT, "0.0.0.0", () => {
-  console.log(`Server listening on port: ${PORT}`);
+app.listen(SERVER_PORT, "0.0.0.0", () => {
+  console.log(`Server listening on port: ${SERVER_PORT}`);
 });
