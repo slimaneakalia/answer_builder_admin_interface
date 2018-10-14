@@ -64,9 +64,16 @@ class AnswerCodesTable extends React.Component {
     this.setState({ addAnswerItem: true, targetAnswerCodeUID: targetUID });
   };
 
+  handleCodeSelectionChange = event => {
+    const answerCodeUUID = event.currentTarget.getAttribute("uid");
+    const { selectNewCode } = this.props;
+    selectNewCode(answerCodeUUID);
+  };
+
   createAnswerCodeItem = (answerData, answerCodeUID) => {
     let className = "glyphicon glyphicon-pencil";
     let rowColumns;
+    const { currentAnswerCodeUID } = this.props;
 
     if (this.rows[answerCodeUID]) {
       rowColumns = this.rows[answerCodeUID];
@@ -118,6 +125,16 @@ class AnswerCodesTable extends React.Component {
             <span className="glyphicon glyphicon-paperclip" />
           </Button>
         </td>
+        <td>
+          <input
+            className="radio"
+            type="radio"
+            name="answerCodes"
+            uid={answerCodeUID}
+            defaultChecked={answerCodeUID === currentAnswerCodeUID}
+            onChange={this.handleCodeSelectionChange}
+          />
+        </td>
       </tr>
     );
   };
@@ -160,6 +177,7 @@ class AnswerCodesTable extends React.Component {
               <th>Edit</th>
               <th>Remove</th>
               <th>Create new item</th>
+              <th>Select</th>
             </tr>
           </thead>
           <tbody>{rows}</tbody>
@@ -192,7 +210,8 @@ class AnswerCodesTable extends React.Component {
 }
 
 AnswerCodesTable.propTypes = {
-  data: PropTypes.string.isRequired,
+  data: PropTypes.isRequired,
+  currentAnswerCodeUID: PropTypes.isRequired,
   channels: PropTypes.isRequired,
   languages: PropTypes.isRequired,
   withAddItemButton: PropTypes.bool.isRequired,
@@ -200,7 +219,8 @@ AnswerCodesTable.propTypes = {
   createNewAnswerCode: PropTypes.isRequired,
   checkDescription: PropTypes.isRequired,
   remove: PropTypes.isRequired,
-  editAnswerCode: PropTypes.isRequired
+  editAnswerCode: PropTypes.isRequired,
+  selectNewCode: PropTypes.isRequired
 };
 
 export default AnswerCodesTable;

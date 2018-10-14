@@ -12,6 +12,8 @@ const data = {
   answerUID2: { Code: "Deuxième Code", Description: "Deuxième description" }
 };
 
+const currentAnswerCodeUID = Object.keys(data)[1];
+
 const channels = {
   WEB: { Channel_label: "WEB", selected: false },
   TWITTER: { Channel_label: "TWITTER", selected: true }
@@ -51,6 +53,11 @@ const createNewAnswerCode = answerCodeData => {
   });
 };
 
+const selectNewCode = codeUID => {
+  console.log("New Code to select");
+  console.log(codeUID);
+};
+
 const Component = ({ withAddItemButton }) => (
   <AnswerCodesTable
     editAnswerCode={editAnswerCode}
@@ -62,6 +69,8 @@ const Component = ({ withAddItemButton }) => (
     createNewAnswerCode={createNewAnswerCode}
     checkDescription={checkDescription}
     withAddItemButton={withAddItemButton}
+    currentAnswerCodeUID={currentAnswerCodeUID}
+    selectNewCode={selectNewCode}
   />
 );
 
