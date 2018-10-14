@@ -66,7 +66,9 @@ class CreateNewAnswerItemModal extends React.Component {
     const newFieldErrors = { ...fieldErrors };
     if (!newFieldErrors[field]) newFieldErrors[field] = [];
     newFieldErrors[field].push(newError);
-    return this.setState({ fieldErrors: newFieldErrors });
+    return new Promise(resolve =>
+      this.setState({ fieldErrors: newFieldErrors }, resolve)
+    );
   };
 
   checkRequiredField = (fieldName, fieldValue, errorMessage) =>

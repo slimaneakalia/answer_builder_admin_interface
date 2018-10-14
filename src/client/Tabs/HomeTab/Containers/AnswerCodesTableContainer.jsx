@@ -20,6 +20,7 @@ const languages = {
   FR: { Language_label: "FR", selected: false },
   EN: { Language_label: "EN", selected: true }
 };
+
 const remove = answerCodeUID => {
   console.log(`UID to remove : ${answerCodeUID}`);
 };

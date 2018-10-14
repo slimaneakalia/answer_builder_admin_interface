@@ -11,6 +11,7 @@ import LanguageFilterContainer from "_shared/Containers/LanguageFilterContainer"
 import AnswerCodesTableContainer from "_home/Containers/AnswerCodesTableContainer";
 import AnswerItemTableContentContainer from "_home/Containers/AnswerItemTableContentContainer";
 import WrapTableContainer from "_shared/Containers/WrapTableContainer";
+import AnswerVariablesContainer from "_home/Containers/AnswerVariablesContainer";
 
 const AnswerItemTable = WrapTableContainer(
   () => <AnswerItemTableContentContainer />,
@@ -39,6 +40,10 @@ const TabComponent = () => (
 
     <div className="container-fluid">
       <AnswerItemTable />
+    </div>
+
+    <div className="container-fluid">
+      <AnswerVariablesContainer />
     </div>
   </React.Fragment>
 );

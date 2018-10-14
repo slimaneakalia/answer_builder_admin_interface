@@ -55,12 +55,14 @@ class AnswerItemTableContentComponent extends React.Component {
       });
     }
 
-    return null;
+    this.setState({
+      editAnswerItem: false,
+      targetAnswerItemUID: null
+    });
   };
 
   remove = event => {
     const answerItemUUID = event.currentTarget.getAttribute("uid");
-
     const row = this.rows[answerItemUUID];
     if (row) {
       delete this.rows[answerItemUUID];
@@ -74,7 +76,6 @@ class AnswerItemTableContentComponent extends React.Component {
 
     const row = this.rows[answerItemUUID];
     if (row) {
-      delete this.rows[answerItemUUID];
       const { duplicate } = this.props;
       duplicate(answerItemUUID);
     }
