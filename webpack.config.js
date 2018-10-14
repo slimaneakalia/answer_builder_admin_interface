@@ -97,6 +97,8 @@ module.exports = {
       _home: path.resolve(tabsDir, "HomeTab"),
       _codes: path.resolve(tabsDir, "CodesTab"),
       _items: path.resolve(tabsDir, "ItemsTab"),
+      _variables: path.resolve(tabsDir, "VariablesTab"),
+      _commands: path.resolve(tabsDir, "CommandsTab"),
       _shared: path.resolve(tabsDir, "Shared")
     }
   },
