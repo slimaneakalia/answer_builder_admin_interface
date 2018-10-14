@@ -10,7 +10,8 @@ export default class SmartTD extends React.Component {
     super(props);
     const { value, contentEditable } = this.props;
     this.contentEditable = contentEditable;
-    this.value = value;
+    if (typeof value === "boolean") this.value = value ? "Yes" : "No";
+    else this.value = value;
   }
 
   handleChange = e => {
@@ -27,13 +28,10 @@ export default class SmartTD extends React.Component {
   };
 
   render() {
-    const tdStyle = !this.contentEditable
-      ? { backgroundColor: UNSELECTED_BACKGROUND_COLOR }
-      : null;
-
-    console.log(`this.contentEditable : ${this.contentEditable}`);
-    console.log(`tdStyle`);
-    console.log(tdStyle);
+    const tdStyle =
+      this.contentEditable === false
+        ? { backgroundColor: UNSELECTED_BACKGROUND_COLOR }
+        : null;
     return (
       <td
         contentEditable={this.contentEditable}
@@ -47,6 +45,5 @@ export default class SmartTD extends React.Component {
 }
 
 SmartTD.propTypes = {
-  value: PropTypes.string.isRequired,
-  contentEditable: PropTypes.bool.isRequired
+  value: PropTypes.string.isRequired
 };

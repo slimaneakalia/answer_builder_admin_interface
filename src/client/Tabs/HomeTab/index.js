@@ -9,6 +9,13 @@ import ChannelFilterContainer from "_shared/Containers/ChannelFilterContainer";
 import LanguageFilterContainer from "_shared/Containers/LanguageFilterContainer";
 
 import AnswerCodesTableContainer from "_home/Containers/AnswerCodesTableContainer";
+import AnswerItemTableContentContainer from "_home/Containers/AnswerItemTableContentContainer";
+import WrapTableContainer from "_shared/Containers/WrapTableContainer";
+
+const AnswerItemTable = WrapTableContainer(
+  () => <AnswerItemTableContentContainer />,
+  "Answer Items"
+);
 
 const TabComponent = () => (
   <React.Fragment>
@@ -28,6 +35,10 @@ const TabComponent = () => (
     <div className="container-fluid">
       <div style={{ height: "20px" }} />
       <AnswerCodesTableContainer />
+    </div>
+
+    <div className="container-fluid">
+      <AnswerItemTable />
     </div>
   </React.Fragment>
 );

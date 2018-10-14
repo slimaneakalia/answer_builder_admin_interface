@@ -4,6 +4,7 @@
 import React from "react";
 import AnswerCodesTable from "_home/Components/AnswerCodesTable";
 import WrapTableContainer from "_shared/Containers/WrapTableContainer";
+import checkDescription from "_shared/Helpers/AnswerItemHelper";
 
 const data = {
   answerUID1: { Code: "Premier Code", Description: "Première description" },
@@ -47,13 +48,6 @@ const createNewAnswerCode = answerCodeData => {
     // reject("Internal Server error : Minoucha");
   });
 };
-
-const checkDescription = text =>
-  new Promise(resolve => {
-    console.log(`${text} is verified`);
-    resolve();
-    // reject("Description error : Minoucha");
-  });
 
 const Component = () => (
   <AnswerCodesTable

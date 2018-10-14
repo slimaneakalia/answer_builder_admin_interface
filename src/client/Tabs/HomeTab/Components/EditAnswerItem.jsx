@@ -10,54 +10,39 @@ import uuid4 from "uuid/v4";
 const NAME_IS_REQUIRED = "The Name is required";
 const TEXT_IS_REQUIRED = "The text is required";
 
-class CreateNewAnswerItemModal extends React.Component {
+class EditAnswerItem extends React.Component {
   constructor(props) {
     super(props);
-    const { languages, channels } = props;
-    const languageUIDs = Object.keys(languages);
-    const channelUIDs = Object.keys(channels);
-    const Language = languageUIDs.length ? languageUIDs[0] : null;
-    const Channel = channelUIDs.length ? channelUIDs[0] : null;
     this.state = {
+      ...props.answerItemData,
       show: true,
-      Name: null,
-      Text: null,
-      Activated: false,
-      _Default: false,
-      cofirmEnabled: true,
       fieldErrors: {},
-      globalErrors: [],
-      Language,
-      Channel
+      globalErrors: []
     };
 
     this.newProps = {
-      title: "Create new Answer Item",
+      title: "Edit Answer Item",
       onConfirm: this.onConfirm,
       onClose: this.onClose
     };
   }
 
   onConfirm = () => {
-    // this.setState({ show: false });
-    const { createNewAnswerItem } = this.props;
-    this.checkFields()
-      .then(() => {
-        const answerItemData = this.getDataFromFields();
-        this.setState({ cofirmEnabled: false }, () => {
-          createNewAnswerItem(answerItemData)
-            .then(() => this.setState({ show: false }))
-            .catch(error => {
-              const { globalErrors } = this.state;
-              const newGlobalErrors = [...globalErrors, error];
-              this.setState({
-                globalErrors: newGlobalErrors,
-                cofirmEnabled: true
-              });
-            });
+    const { edit } = this.props;
+    this.checkFields().then(() => {
+      const answerItemData = this.getDataFromFields();
+      edit(answerItemData)
+        .then(() => {
+          this.setState({ show: false });
+        })
+        .catch(error => {
+          const { globalErrors } = this.state;
+          const newGlobalErrors = [...globalErrors, error];
+          this.setState({
+            globalErrors: newGlobalErrors
+          });
         });
-      })
-      .catch(() => {});
+    });
   };
 
   addFieldError = (field, newError) => {
@@ -117,16 +102,16 @@ class CreateNewAnswerItemModal extends React.Component {
       "Activated",
       "_Default"
     ]);
-    const { answerCodeUID } = this.props;
-    data.Answer_UID = answerCodeUID;
+    const { answerItemUID } = this.props;
+    data.AnswerItem_UUID = answerItemUID;
 
     return data;
   };
 
   onClose = () => {
     this.setState({ show: false });
-    const { closedModal } = this.props;
-    closedModal();
+    const { edit } = this.props;
+    edit();
   };
 
   handleChange = event => {
@@ -194,9 +179,9 @@ class CreateNewAnswerItemModal extends React.Component {
       Channel,
       Text,
       Activated,
-      _Default,
-      cofirmEnabled
+      _Default
     } = this.state;
+
     const languagesSelect = Object.keys(languages).map(key => (
       <option key={key} value={key} selected={key === Language}>
         {languages[key].Language_label}
@@ -211,7 +196,7 @@ class CreateNewAnswerItemModal extends React.Component {
 
     return (
       show && (
-        <Modal cofirmEnabled={cofirmEnabled} {...this.newProps}>
+        <Modal {...this.newProps} cofirmEnabled>
           <form className="form-horizontal">
             <div className={this.createDivClassName("Name")}>
               <label htmlFor="Name" className="col-sm-2 control-label">
@@ -305,13 +290,14 @@ class CreateNewAnswerItemModal extends React.Component {
   }
 }
 
-CreateNewAnswerItemModal.propTypes = {
-  closedModal: PropTypes.isRequired,
-  answerCodeUID: PropTypes.string.isRequired,
+EditAnswerItem.propTypes = {
+  answerItemUID: PropTypes.isRequired,
+  answerItemData: PropTypes.isRequired,
   languages: PropTypes.isRequired,
   channels: PropTypes.isRequired,
-  checkDescription: PropTypes.isRequired,
-  createNewAnswerItem: PropTypes.isRequired
+  edit: PropTypes.isRequired,
+  closedModal: PropTypes.isRequired,
+  checkDescription: PropTypes.isRequired
 };
 
-export default CreateNewAnswerItemModal;
+export default EditAnswerItem;

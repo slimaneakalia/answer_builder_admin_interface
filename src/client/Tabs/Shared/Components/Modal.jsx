@@ -13,7 +13,6 @@ class ModalComponent extends React.Component {
 
   render() {
     const { title, children, cofirmEnabled, onConfirm } = this.props;
-
     return (
       <Modal show onHide={this.closeHandler}>
         <Modal.Header closeButton>
