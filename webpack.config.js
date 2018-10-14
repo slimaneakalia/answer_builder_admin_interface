@@ -95,6 +95,8 @@ module.exports = {
     alias: {
       _tabs: tabsDir,
       _home: path.resolve(tabsDir, "HomeTab"),
+      _codes: path.resolve(tabsDir, "CodesTab"),
+      _items: path.resolve(tabsDir, "ItemsTab"),
       _shared: path.resolve(tabsDir, "Shared")
     }
   },

@@ -2,15 +2,13 @@
 	* @author{Slimane AKALIA} slimaneakalia@gmail.com, Linkedin.com/in/slimaneakalia
 */
 import React from "react";
+import PropTypes from "prop-types";
 import SearchBar from "_shared/Components/SearchBar";
 
-const onSearchClick = e => {
-  console.log("New event was detected !");
-  console.log(e);
-};
+const SearchTextContainer = props => <SearchBar {...props} />;
 
-const SearchTextContainer = props => (
-  <SearchBar onSearchClick={onSearchClick} {...props} />
-);
+SearchTextContainer.propTypes = {
+  onSearchClick: PropTypes.isRequired
+};
 
 export default SearchTextContainer;

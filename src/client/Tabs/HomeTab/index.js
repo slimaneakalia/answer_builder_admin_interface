@@ -13,6 +13,11 @@ import AnswerItemTableContentContainer from "_home/Containers/AnswerItemTableCon
 import WrapTableContainer from "_shared/Containers/WrapTableContainer";
 import AnswerVariablesContainer from "_home/Containers/AnswerVariablesContainer";
 
+const onSearchClick = e => {
+  console.log("New event was detected !");
+  console.log(e);
+};
+
 const AnswerItemTable = WrapTableContainer(
   () => <AnswerItemTableContentContainer />,
   "Answer Items"
@@ -22,7 +27,10 @@ const TabComponent = () => (
   <React.Fragment>
     <div className="anchor" id="a0" />
     <div className="container-fluid cm-container-white">
-      <SearchTextContainer placeholder="Search ..." />
+      <SearchTextContainer
+        placeholder="Search ..."
+        onSearchClick={onSearchClick}
+      />
     </div>
 
     <div className="container-fluid cm-container-white">

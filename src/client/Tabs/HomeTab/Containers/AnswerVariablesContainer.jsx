@@ -4,6 +4,7 @@
 import React from "react";
 import AnswerVariablesTable from "_home/Components/AnswerVariablesTable";
 import WrapTableContainer from "_shared/Containers/WrapTableContainer";
+import PropTypes from "prop-types";
 
 const data = {
   AnswerVariable_UID1: {
@@ -48,16 +49,24 @@ const create = answerVariableData => {
   });
 };
 
-const Component = () => (
+const Component = ({ withAddItemButton }) => (
   <AnswerVariablesTable
     data={data}
     edit={edit}
     duplicate={duplicate}
     remove={remove}
     create={create}
-    withAddItemButton
+    withAddItemButton={withAddItemButton}
   />
 );
+
+Component.propTypes = {
+  withAddItemButton: PropTypes.bool
+};
+
+Component.defaultProps = {
+  withAddItemButton: false
+};
 
 const AnswerVariablesTableContainer = WrapTableContainer(
   Component,

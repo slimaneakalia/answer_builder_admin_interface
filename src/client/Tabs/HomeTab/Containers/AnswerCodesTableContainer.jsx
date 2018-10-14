@@ -2,6 +2,7 @@
 	* @author{Slimane AKALIA} slimaneakalia@gmail.com, Linkedin.com/in/slimaneakalia
 */
 import React from "react";
+import PropTypes from "prop-types";
 import AnswerCodesTable from "_home/Components/AnswerCodesTable";
 import WrapTableContainer from "_shared/Containers/WrapTableContainer";
 import checkDescription from "_shared/Helpers/AnswerItemHelper";
@@ -50,7 +51,7 @@ const createNewAnswerCode = answerCodeData => {
   });
 };
 
-const Component = () => (
+const Component = ({ withAddItemButton }) => (
   <AnswerCodesTable
     editAnswerCode={editAnswerCode}
     remove={remove}
@@ -60,9 +61,17 @@ const Component = () => (
     createNewAnswerItem={createNewAnswerItem}
     createNewAnswerCode={createNewAnswerCode}
     checkDescription={checkDescription}
-    withAddItemButton
+    withAddItemButton={withAddItemButton}
   />
 );
+
+Component.propTypes = {
+  withAddItemButton: PropTypes.bool
+};
+
+Component.defaultProps = {
+  withAddItemButton: false
+};
 
 const AnswerCodesTableContainer = WrapTableContainer(Component, "Answer codes");
 

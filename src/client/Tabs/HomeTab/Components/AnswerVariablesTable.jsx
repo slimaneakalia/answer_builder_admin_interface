@@ -3,6 +3,7 @@
 */
 import React from "react";
 import PropTypes from "prop-types";
+import _ from "lodash";
 import SmartTD from "_shared/Components/SmartTD";
 import Button from "_shared/Components/Button";
 import ManageAnswerVariable from "_home//Components/ManageAnswerVariable";
