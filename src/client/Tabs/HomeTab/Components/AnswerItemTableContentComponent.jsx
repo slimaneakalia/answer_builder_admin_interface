@@ -20,7 +20,6 @@ const dataFields = [
 class AnswerItemTableContentComponent extends React.Component {
   constructor(props) {
     super(props);
-    this.rows = {};
     this.state = {
       editAnswerItem: false,
       targetAnswerItemUID: null
@@ -105,7 +104,7 @@ class AnswerItemTableContentComponent extends React.Component {
     }
 
     return (
-      <tr className={rowClassName}>
+      <tr className={rowClassName} key={answerItemUID}>
         {Object.values(renderedRowColumns)}
         <td>
           <Button onClick={this.edit} uid={answerItemUID}>
@@ -127,6 +126,7 @@ class AnswerItemTableContentComponent extends React.Component {
   };
 
   render() {
+    this.rows = {};
     const { data, languages, channels, checkDescription } = this.props;
     const { editAnswerItem, targetAnswerItemUID } = this.state;
     const rows = Object.keys(data).map(key =>

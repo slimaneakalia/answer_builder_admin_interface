@@ -4,38 +4,60 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const SearchBar = ({ label, placeholder, onSearchClick }) => {
-  const searchBar = (
-    <div className="input-group input-group-lg">
-      <input type="text" className="form-control" placeholder={placeholder} />
-      <span className="input-group-btn">
-        <button
-          style={{ zIndex: 2 }}
-          className="btn btn-primary md-search-white"
-          type="button"
-          onClick={onSearchClick}
-        >
-          &nbsp;&nbsp;&nbsp;&nbsp;
-        </button>
-      </span>
-    </div>
-  );
-
-  if (label) {
-    return (
-      <React.Fragment>
-        <h2 style={{ marginTop: 0 }}>{label}</h2>
-        <blockquote>{searchBar}</blockquote>
-      </React.Fragment>
-    );
+class SearchBar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.searchBarRef = React.createRef();
   }
-  return searchBar;
-};
+
+  handleClick = () => {
+    const { onSearchClick } = this.props;
+    onSearchClick(this.searchBarRef.current);
+  };
+
+  render() {
+    const { label, placeholder } = this.props;
+    const searchBar = (
+      <div className="input-group input-group-lg">
+        <input
+          type="text"
+          className="form-control"
+          placeholder={placeholder}
+          ref={this.searchBarRef}
+        />
+        <span className="input-group-btn">
+          <button
+            style={{ zIndex: 2 }}
+            className="btn btn-primary md-search-white"
+            type="button"
+            onClick={this.handleClick}
+          >
+            &nbsp;&nbsp;&nbsp;&nbsp;
+          </button>
+        </span>
+      </div>
+    );
+
+    if (label) {
+      return (
+        <React.Fragment>
+          <h2 style={{ marginTop: 0 }}>{label}</h2>
+          <blockquote>{searchBar}</blockquote>
+        </React.Fragment>
+      );
+    }
+    return searchBar;
+  }
+}
 
 SearchBar.propTypes = {
   label: PropTypes.string,
   placeholder: PropTypes.string.isRequired,
   onSearchClick: PropTypes.isRequired
+};
+
+SearchBar.defaultProps = {
+  label: null
 };
 
 export default SearchBar;

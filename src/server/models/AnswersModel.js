@@ -11,6 +11,12 @@ function getAll() {
   return dbMiddleware.getAll(tableName);
 }
 
+function find(request) {
+  return knexMySql(tableName)
+    .where("Code", "like", `%${request}%`)
+    .orWhere("Description", "like", `%${request}%`);
+}
+
 function findByAnswerItems(data) {
   const newData = { ...data };
   let answerUIDs = newData.items.map(item => item.Answer_UID);
@@ -51,5 +57,6 @@ module.exports = {
   getAll,
   findByAnswerItems,
   updateCode,
-  updateDescription
+  updateDescription,
+  find
 };

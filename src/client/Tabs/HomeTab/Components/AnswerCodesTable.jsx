@@ -16,7 +16,6 @@ function getFromRow(row, field) {
 class AnswerCodesTable extends React.Component {
   constructor(props) {
     super(props);
-    this.rows = {};
     this.state = {
       addAnswerItem: false,
       targetAnswerCodeUID: null,
@@ -107,7 +106,7 @@ class AnswerCodesTable extends React.Component {
     }
 
     return (
-      <tr>
+      <tr key={answerCodeUID}>
         {rowColumns.Code}
         {rowColumns.Description}
         <td>
@@ -152,6 +151,7 @@ class AnswerCodesTable extends React.Component {
   };
 
   render() {
+    this.rows = {};
     const {
       data,
       languages,

@@ -15,7 +15,6 @@ export const dataFields = ["Name", "Text", "Description"];
 class CommandsTable extends React.Component {
   constructor(props) {
     super(props);
-    this.rows = {};
     this.state = {
       editCommand: false,
       targetCommandUID: null,
@@ -78,7 +77,7 @@ class CommandsTable extends React.Component {
     }
 
     return (
-      <tr>
+      <tr key={commandUID}>
         {Object.values(renderedRowColumns)}
         <td>
           <Button onClick={this.edit} uid={commandUID}>
@@ -146,6 +145,7 @@ class CommandsTable extends React.Component {
   };
 
   render() {
+    this.rows = {};
     const { data, withAddItemButton } = this.props;
     const { editCommand, targetCommandUID, addCommand } = this.state;
     const rows = Object.keys(data).map(key =>

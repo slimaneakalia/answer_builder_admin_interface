@@ -12,3 +12,15 @@ export default function fetchAnswerCodes(store) {
       fetchAnswerCodes(store);
     });
 }
+
+export function fetchAnswerCodesByText(text, dispatch) {
+  GETData("/answers/find", { value: text })
+    .then(result => result.json())
+    .then(result => {
+      const action = { type: ActionTypes.FETCH_CODES, data: result };
+      dispatch(action);
+    })
+    .catch(() => {
+      fetchAnswerCodesByText(text, dispatch);
+    });
+}

@@ -12,3 +12,15 @@ export default function fetchAnswerItems(store) {
       fetchAnswerItems(store);
     });
 }
+
+export function fetchAnswerItemsByText(text, dispatch) {
+  GETData("/answer_items/all_by_text", { text })
+    .then(result => result.json())
+    .then(result => {
+      const action = { type: ActionTypes.FETCH_ITEMS, data: result };
+      dispatch(action);
+    })
+    .catch(() => {
+      fetchAnswerItemsByText(dispatch);
+    });
+}

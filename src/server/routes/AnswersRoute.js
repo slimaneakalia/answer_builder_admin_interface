@@ -19,6 +19,13 @@ router.get("/all", (req, res) => {
   routesMiddleware.sendDBResult(res, AnswersModel.getAll());
 });
 
+router.get("/find", (req, res) => {
+  let { value } = req.query;
+  if (typeof value === "undefined" || value == null) value = "";
+
+  routesMiddleware.sendDBResult(res, AnswersModel.find(value));
+});
+
 router.post("/edit_code", (req, res) => {
   editField(req, res, "Code", AnswersModel.updateCode);
 });

@@ -160,6 +160,7 @@ class ManageAnswerVariable extends React.Component {
   };
 
   createInputFieldFromKey = (state, field) => {
+    const key = uuid4();
     if (field === "Activated") {
       return (
         <input
@@ -167,6 +168,7 @@ class ManageAnswerVariable extends React.Component {
           checked={state[field]}
           onChange={this.handleChange}
           id="Activated"
+          key={key}
         />
       );
     }
@@ -177,6 +179,7 @@ class ManageAnswerVariable extends React.Component {
         id={field}
         value={state[field]}
         onChange={this.handleChange}
+        key={key}
       />
     );
   };

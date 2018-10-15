@@ -22,13 +22,9 @@ router.get("/all", (req, res) => {
 });
 
 router.get("/all_by_text", (req, res) => {
-  const textQuery = req.query.text;
-  if (textQuery) {
-    routesMiddleware.sendDBResult(
-      res,
-      AnswerItemsModel.getAllByText(textQuery)
-    );
-  } else res.sendStatus(400);
+  let textQuery = req.query.text;
+  if (typeof textQuery === "undefined" || textQuery == null) textQuery = "";
+  routesMiddleware.sendDBResult(res, AnswerItemsModel.getAllByText(textQuery));
 });
 
 router.post("/add_item", (req, res) => {
@@ -102,6 +98,12 @@ router.get("/all_by_answer", (req, res) => {
       AnswerItemsModel.getAllByAnswer(answerUID)
     );
   } else res.sendStatus(400);
+});
+
+// Request example : {'Language' : 1, 'Channel' : 'C'}
+router.get("/all_by_criterias", (req, res) => {
+  const { query } = req;
+  routesMiddleware.sendDBResult(res, AnswerItemsModel.getAllByCriterias(query));
 });
 
 module.exports = router;

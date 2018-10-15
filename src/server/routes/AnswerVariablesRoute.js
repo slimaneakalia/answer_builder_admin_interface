@@ -42,10 +42,9 @@ router.post("/simulate", (req, res) => {
 
 // Third use case
 router.get("/find", (req, res) => {
-  const { value } = req.query;
-  if (value)
-    routesMiddleware.sendDBResult(res, AnswerVariablesModel.find(value));
-  else res.sendStatus(400);
+  let { value } = req.query;
+  if (typeof value === "undefined" || value == null) value = "";
+  routesMiddleware.sendDBResult(res, AnswerVariablesModel.find(value));
 });
 
 router.post("/add_variable", (req, res) => {

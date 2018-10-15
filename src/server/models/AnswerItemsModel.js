@@ -13,10 +13,13 @@ function getAll() {
 }
 
 function getAllByText(text) {
-  return knexMySql(tableName)
-    .where("Text", "like", `%${text}%`)
-    .then(answerItems => AnswerVariablesModel.findByAnswerItems(answerItems))
-    .then(data => AnswersModel.findByAnswerItems(data));
+  return knexMySql(tableName).where("Text", "like", `%${text}%`);
+  /* .then(answerItems => AnswerVariablesModel.findByAnswerItems(answerItems))
+    .then(data => AnswersModel.findByAnswerItems(data)); */
+}
+
+function getAllByCriterias(query) {
+  return knexMySql(tableName).where(query);
 }
 
 function getAllByAnswer(answerUID) {
@@ -77,5 +80,6 @@ module.exports = {
   activateDeactivate,
   updateField,
   setAsDefault,
-  getAllByAnswer
+  getAllByAnswer,
+  getAllByCriterias
 };

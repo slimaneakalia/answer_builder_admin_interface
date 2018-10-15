@@ -14,7 +14,6 @@ export const dataFields = ["Name", "Value", "_Group", "SubGroup", "Activated"];
 class AnswerVariablesTable extends React.Component {
   constructor(props) {
     super(props);
-    this.rows = {};
     this.state = {
       editAnswerVariable: false,
       targetAnswerVariableUID: null,
@@ -78,7 +77,7 @@ class AnswerVariablesTable extends React.Component {
     }
 
     return (
-      <tr className={rowClassName}>
+      <tr className={rowClassName} key={answerVariableUID}>
         {Object.values(renderedRowColumns)}
         <td>
           <Button onClick={this.edit} uid={answerVariableUID}>
@@ -146,8 +145,7 @@ class AnswerVariablesTable extends React.Component {
   };
 
   render() {
-    console.log("this.props :");
-    console.log(this.props);
+    this.rows = {};
 
     const {
       editAnswerVariable,

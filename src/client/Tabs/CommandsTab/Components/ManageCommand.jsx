@@ -115,6 +115,7 @@ class ManageCommand extends React.Component {
       id={field}
       value={state[field]}
       onChange={this.handleChange}
+      key={uuid4()}
     />
   );
 

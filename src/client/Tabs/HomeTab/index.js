@@ -12,11 +12,10 @@ import AnswerCodesTableContainer from "_home/Containers/AnswerCodesTableContaine
 import AnswerItemTableContentContainer from "_home/Containers/AnswerItemTableContentContainer";
 import WrapTableContainer from "_shared/Containers/WrapTableContainer";
 import AnswerVariablesContainer from "_home/Containers/AnswerVariablesContainer";
+import searchAllByText from "_action_creators";
 
-const onSearchClick = (e, dispatch) => {
-  console.log("New event was detected !");
-  console.log(e);
-  console.log(dispatch);
+const onSearchClick = (input, dispatch) => {
+  searchAllByText(input.value, dispatch);
 };
 
 const AnswerItemTable = WrapTableContainer(
