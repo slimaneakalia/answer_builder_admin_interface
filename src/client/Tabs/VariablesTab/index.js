@@ -3,26 +3,32 @@ import React from "react";
 import WrapTabContent from "_shared/Containers/WrapTabContent";
 import SearchTextContainer from "_shared/Containers/SearchTextContainer";
 import AnswerVariablesContainer from "_home/Containers/AnswerVariablesContainer";
+import WrapTableContainer from "_shared/Containers/WrapTableContainer";
 
-const searchByName = e => {
+const searchByName = (e, dispatch) => {
   console.log("searchByName event was detected !");
   console.log(e);
 };
 
-const searchByValue = e => {
+const searchByValue = (e, dispatch) => {
   console.log("searchByValue event was detected !");
   console.log(e);
 };
 
-const searchByGroup = e => {
+const searchByGroup = (e, dispatch) => {
   console.log("searchByGroup event was detected !");
   console.log(e);
 };
 
-const searchBySubGroup = e => {
+const searchBySubGroup = (e, dispatch) => {
   console.log("searchBySubGroup event was detected !");
   console.log(e);
 };
+
+const AnswerVariables = WrapTableContainer(
+  AnswerVariablesContainer,
+  "Answer variables"
+);
 
 const TabComponent = () => (
   <React.Fragment>
@@ -67,7 +73,7 @@ const TabComponent = () => (
 
     <div className="container-fluid">
       <div style={{ height: "20px" }} />
-      <AnswerVariablesContainer withAddItemButton />
+      <AnswerVariables withAddItemButton />
     </div>
   </React.Fragment>
 );

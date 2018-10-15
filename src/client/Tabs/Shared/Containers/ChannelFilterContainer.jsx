@@ -1,17 +1,13 @@
 /* 
 	* @author{Slimane AKALIA} slimaneakalia@gmail.com, Linkedin.com/in/slimaneakalia
 */
-import React from "react";
+import { connect } from "react-redux";
 import SearchFilter from "_shared/Components/SearchFilter";
 
-const data = {
-  WEB: { Channel_label: "WEB", selected: false },
-  TWITTER: { Channel_label: "TWITTER", selected: true }
-};
-
-const updateFilter = e => {
+const updateFilter = (e, dispatch) => {
   console.log("New update channel event was detected !");
   console.log(e);
+  console.log(dispatch);
 };
 
 const constants = {
@@ -19,8 +15,16 @@ const constants = {
   textkey: "Channel_label"
 };
 
-const ChannelFilterContainer = () => (
-  <SearchFilter updateFilter={updateFilter} data={data} {...constants} />
-);
+const mapStateToProps = state => ({
+  data: state.Channels
+});
 
-export default ChannelFilterContainer;
+const mapDispatchToProps = dispatch => ({
+  updateFilter: e => updateFilter(e, dispatch),
+  ...constants
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SearchFilter);

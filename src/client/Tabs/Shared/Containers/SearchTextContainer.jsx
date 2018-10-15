@@ -1,14 +1,14 @@
 /* 
 	* @author{Slimane AKALIA} slimaneakalia@gmail.com, Linkedin.com/in/slimaneakalia
 */
-import React from "react";
-import PropTypes from "prop-types";
 import SearchBar from "_shared/Components/SearchBar";
+import { connect } from "react-redux";
 
-const SearchTextContainer = props => <SearchBar {...props} />;
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  onSearchClick: e => ownProps.onSearchClick(e, dispatch)
+});
 
-SearchTextContainer.propTypes = {
-  onSearchClick: PropTypes.isRequired
-};
-
-export default SearchTextContainer;
+export default connect(
+  null,
+  mapDispatchToProps
+)(SearchBar);

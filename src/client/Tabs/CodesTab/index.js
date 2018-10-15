@@ -3,11 +3,17 @@ import React from "react";
 import WrapTabContent from "_shared/Containers/WrapTabContent";
 import SearchTextContainer from "_shared/Containers/SearchTextContainer";
 import AnswerCodesTableContainer from "_home/Containers/AnswerCodesTableContainer";
+import WrapTableContainer from "_shared/Containers/WrapTableContainer";
 
-const onSearchClick = e => {
+const onSearchClick = (e, dispatch) => {
   console.log("New event was detected !");
   console.log(e);
 };
+
+const AnswerCodesTable = WrapTableContainer(
+  AnswerCodesTableContainer,
+  "Answer codes"
+);
 
 const TabComponent = () => (
   <React.Fragment>
@@ -21,7 +27,7 @@ const TabComponent = () => (
 
     <div className="container-fluid">
       <div style={{ height: "20px" }} />
-      <AnswerCodesTableContainer withAddItemButton />
+      <AnswerCodesTable withAddItemButton />
     </div>
   </React.Fragment>
 );

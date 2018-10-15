@@ -10,7 +10,7 @@ export default class SmartTD extends React.Component {
     super(props);
     const { value, contentEditable } = this.props;
     this.contentEditable = contentEditable;
-    if (typeof value === "boolean") this.value = value ? "Yes" : "No";
+    if (typeof value !== "string") this.value = value ? "Yes" : "No";
     else this.value = value;
   }
 

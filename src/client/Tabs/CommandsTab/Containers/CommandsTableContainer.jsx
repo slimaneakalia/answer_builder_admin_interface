@@ -1,38 +1,18 @@
 /* 
 	* @author{Slimane AKALIA} slimaneakalia@gmail.com, Linkedin.com/in/slimaneakalia
 */
-import React from "react";
 import CommandsTable from "_commands/Components/CommandsTable";
-import WrapTableContainer from "_shared/Containers/WrapTableContainer";
-import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
-const data = {
-  Command_UID1: {
-    Name: "Name 1",
-    Text: "Text 1",
-    Description: "Description 1"
-  },
-  Command_UID2: {
-    Name: "Name 2",
-    Text: "Text 2",
-    Description: "Description 2"
-  },
-  Command_UID3: {
-    Name: "Name 3",
-    Text: "Text 3",
-    Description: "Description 3"
-  }
-};
-
-const remove = CommandUID => {
+const remove = (CommandUID, dispatch) => {
   console.log(`CommandUID to remove : ${CommandUID}`);
 };
 
-const duplicate = CommandUID => {
+const duplicate = (CommandUID, dispatch) => {
   console.log(`CommandUID to duplicate : ${CommandUID}`);
 };
 
-const edit = commandData => {
+const edit = (commandData, dispatch) => {
   console.log(`New Edition with data to add :`);
   console.log(commandData);
   return new Promise((resolve, reject) => {
@@ -41,7 +21,7 @@ const edit = commandData => {
   });
 };
 
-const create = commandData => {
+const create = (commandData, dispatch) => {
   console.log("New Command to add :");
   console.log(commandData);
   return new Promise((resolve, reject) => {
@@ -50,25 +30,18 @@ const create = commandData => {
   });
 };
 
-const Component = ({ withAddItemButton }) => (
-  <CommandsTable
-    data={data}
-    edit={edit}
-    duplicate={duplicate}
-    remove={remove}
-    create={create}
-    withAddItemButton={withAddItemButton}
-  />
-);
+const mapStateToProps = state => ({
+  data: state.Commands.CommandsSearchResult
+});
 
-Component.propTypes = {
-  withAddItemButton: PropTypes.bool
-};
+const mapDispatchToProps = dispatch => ({
+  edit: commandData => edit(commandData, dispatch),
+  duplicate: CommandUID => duplicate(CommandUID, dispatch),
+  remove: CommandUID => remove(CommandUID, dispatch),
+  create: commandData => create(commandData, dispatch)
+});
 
-Component.defaultProps = {
-  withAddItemButton: false
-};
-
-const CommandsTableContainer = WrapTableContainer(Component, "Answer commands");
-
-export default CommandsTableContainer;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CommandsTable);

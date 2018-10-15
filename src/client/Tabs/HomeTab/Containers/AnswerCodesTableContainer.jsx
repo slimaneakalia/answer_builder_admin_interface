@@ -1,41 +1,22 @@
 /* 
 	* @author{Slimane AKALIA} slimaneakalia@gmail.com, Linkedin.com/in/slimaneakalia
 */
-import React from "react";
-import PropTypes from "prop-types";
 import AnswerCodesTable from "_home/Components/AnswerCodesTable";
-import WrapTableContainer from "_shared/Containers/WrapTableContainer";
 import checkDescription from "_shared/Helpers/AnswerItemHelper";
+import { connect } from "react-redux";
 
-const data = {
-  answerUID1: { Code: "Premier Code", Description: "Première description" },
-  answerUID2: { Code: "Deuxième Code", Description: "Deuxième description" }
-};
-
-const currentAnswerCodeUID = Object.keys(data)[1];
-
-const channels = {
-  WEB: { Channel_label: "WEB", selected: false },
-  TWITTER: { Channel_label: "TWITTER", selected: true }
-};
-
-const languages = {
-  FR: { Language_label: "FR", selected: false },
-  EN: { Language_label: "EN", selected: true }
-};
-
-const remove = answerCodeUID => {
+const remove = (answerCodeUID, dispatch) => {
   console.log(`UID to remove : ${answerCodeUID}`);
 };
 
-const editAnswerCode = (answerCodeUID, code, description) => {
+const editAnswerCode = (answerCodeUID, code, description, dispatch) => {
   console.log(`New Edition with data to add :`);
   console.log(`answerCodeUID : ${answerCodeUID}`);
   console.log(`code : ${code}`);
   console.log(`description : ${description}`);
 };
 
-const createNewAnswerItem = answerItemData => {
+const createNewAnswerItem = (answerItemData, dispatch) => {
   console.log("New AnswerItem to add :");
   console.log(answerItemData);
   return new Promise(resolve => {
@@ -44,7 +25,7 @@ const createNewAnswerItem = answerItemData => {
   });
 };
 
-const createNewAnswerCode = answerCodeData => {
+const createNewAnswerCode = (answerCodeData, dispatch) => {
   console.log("New AnswerCode to add :");
   console.log(answerCodeData);
   return new Promise(resolve => {
@@ -53,35 +34,31 @@ const createNewAnswerCode = answerCodeData => {
   });
 };
 
-const selectNewCode = codeUID => {
+const selectNewCode = (codeUID, dispatch) => {
   console.log("New Code to select");
   console.log(codeUID);
 };
 
-const Component = ({ withAddItemButton }) => (
-  <AnswerCodesTable
-    editAnswerCode={editAnswerCode}
-    remove={remove}
-    data={data}
-    channels={channels}
-    languages={languages}
-    createNewAnswerItem={createNewAnswerItem}
-    createNewAnswerCode={createNewAnswerCode}
-    checkDescription={checkDescription}
-    withAddItemButton={withAddItemButton}
-    currentAnswerCodeUID={currentAnswerCodeUID}
-    selectNewCode={selectNewCode}
-  />
-);
+const mapStateToProps = state => ({
+  channels: state.Channels,
+  languages: state.Languages,
+  data: state.Codes.CodesSearchResult,
+  currentAnswerCodeUID: state.Codes.currentAnswerCodeUID
+});
 
-Component.propTypes = {
-  withAddItemButton: PropTypes.bool
-};
+const mapDispatchToProps = dispatch => ({
+  editAnswerCode: (answerCodeUID, code, description) =>
+    editAnswerCode(answerCodeUID, code, description, dispatch),
+  remove: answerCodeUID => remove(answerCodeUID, dispatch),
+  createNewAnswerItem: answerItemData =>
+    createNewAnswerItem(answerItemData, dispatch),
+  createNewAnswerCode: answerCodeData =>
+    createNewAnswerCode(answerCodeData, dispatch),
+  selectNewCode: codeUID => selectNewCode(codeUID, dispatch),
+  checkDescription
+});
 
-Component.defaultProps = {
-  withAddItemButton: false
-};
-
-const AnswerCodesTableContainer = WrapTableContainer(Component, "Answer codes");
-
-export default AnswerCodesTableContainer;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AnswerCodesTable);

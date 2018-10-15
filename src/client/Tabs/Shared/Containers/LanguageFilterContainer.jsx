@@ -1,17 +1,13 @@
 /* 
 	* @author{Slimane AKALIA} slimaneakalia@gmail.com, Linkedin.com/in/slimaneakalia
 */
-import React from "react";
+import { connect } from "react-redux";
 import SearchFilter from "_shared/Components/SearchFilter";
 
-const data = {
-  FR: { Language_label: "FR", selected: false },
-  EN: { Language_label: "EN", selected: true }
-};
-
-const updateFilter = e => {
+const updateFilter = (e, dispatch) => {
   console.log("New update language event was detected !");
   console.log(e);
+  console.log(dispatch);
 };
 
 const constants = {
@@ -19,8 +15,16 @@ const constants = {
   textkey: "Language_label"
 };
 
-const LanguageFilterContainer = () => (
-  <SearchFilter updateFilter={updateFilter} data={data} {...constants} />
-);
+const mapStateToProps = state => ({
+  data: state.Languages
+});
 
-export default LanguageFilterContainer;
+const mapDispatchToProps = dispatch => ({
+  updateFilter: e => updateFilter(e, dispatch),
+  ...constants
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SearchFilter);

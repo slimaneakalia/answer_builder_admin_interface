@@ -13,14 +13,25 @@ import AnswerItemTableContentContainer from "_home/Containers/AnswerItemTableCon
 import WrapTableContainer from "_shared/Containers/WrapTableContainer";
 import AnswerVariablesContainer from "_home/Containers/AnswerVariablesContainer";
 
-const onSearchClick = e => {
+const onSearchClick = (e, dispatch) => {
   console.log("New event was detected !");
   console.log(e);
+  console.log(dispatch);
 };
 
 const AnswerItemTable = WrapTableContainer(
   () => <AnswerItemTableContentContainer />,
   "Answer Items"
+);
+
+const AnswerCodesTable = WrapTableContainer(
+  AnswerCodesTableContainer,
+  "Answer codes"
+);
+
+const AnswerVariables = WrapTableContainer(
+  AnswerVariablesContainer,
+  "Answer variables"
 );
 
 const TabComponent = () => (
@@ -43,7 +54,7 @@ const TabComponent = () => (
 
     <div className="container-fluid">
       <div style={{ height: "20px" }} />
-      <AnswerCodesTableContainer />
+      <AnswerCodesTable />
     </div>
 
     <div className="container-fluid">
@@ -51,7 +62,7 @@ const TabComponent = () => (
     </div>
 
     <div className="container-fluid">
-      <AnswerVariablesContainer />
+      <AnswerVariables />
     </div>
   </React.Fragment>
 );

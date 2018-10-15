@@ -1,16 +1,14 @@
-import AnswerCodesPanel from "_items/Components/AnswerCodesPanel";
-
 import { connect } from "react-redux";
+import TabContent from "_items/Components/TabContent";
 
 const mapStateToProps = state => {
-  let data = {};
   const currentUID = state.Codes.currentAnswerCodeUID;
   if (currentUID) {
     const tmp = state.Codes.CodesSearchResult[currentUID];
-    if (tmp) data = tmp;
+    if (tmp) return tmp;
   }
 
-  return { data };
+  return {};
 };
 
-export default connect(mapStateToProps)(AnswerCodesPanel);
+export default connect(mapStateToProps)(TabContent);

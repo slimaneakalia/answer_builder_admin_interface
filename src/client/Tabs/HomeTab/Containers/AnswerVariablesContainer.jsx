@@ -1,27 +1,8 @@
 /* 
 	* @author{Slimane AKALIA} slimaneakalia@gmail.com, Linkedin.com/in/slimaneakalia
 */
-import React from "react";
+import { connect } from "react-redux";
 import AnswerVariablesTable from "_home/Components/AnswerVariablesTable";
-import WrapTableContainer from "_shared/Containers/WrapTableContainer";
-import PropTypes from "prop-types";
-
-const data = {
-  AnswerVariable_UID1: {
-    Name: "Name 1",
-    Value: "Value 1",
-    _Group: "_Group 1",
-    SubGroup: "SubGroup 1",
-    Activated: false
-  },
-  AnswerVariable_UID2: {
-    Name: "Name 2",
-    Value: "Value 2",
-    _Group: "_Group 2",
-    SubGroup: "SubGroup 2",
-    Activated: true
-  }
-};
 
 const remove = answerVariableUID => {
   console.log(`AnswerVariableUID to remove : ${answerVariableUID}`);
@@ -49,28 +30,18 @@ const create = answerVariableData => {
   });
 };
 
-const Component = ({ withAddItemButton }) => (
-  <AnswerVariablesTable
-    data={data}
-    edit={edit}
-    duplicate={duplicate}
-    remove={remove}
-    create={create}
-    withAddItemButton={withAddItemButton}
-  />
-);
+const mapStateToProps = state => ({
+  data: state.Variables.VariablesSearchResult
+});
 
-Component.propTypes = {
-  withAddItemButton: PropTypes.bool
-};
+const mapDispatchToProps = dispatch => ({
+  edit: answerVariableData => edit(answerVariableData, dispatch),
+  duplicate: answerVariableUID => duplicate(answerVariableUID, dispatch),
+  remove: answerVariableUID => remove(answerVariableUID, dispatch),
+  create: answerVariableData => create(answerVariableData, dispatch)
+});
 
-Component.defaultProps = {
-  withAddItemButton: false
-};
-
-const AnswerVariablesTableContainer = WrapTableContainer(
-  Component,
-  "Answer variables"
-);
-
-export default AnswerVariablesTableContainer;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AnswerVariablesTable);

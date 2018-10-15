@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import ItemsSearchResults from "_reducers/Items/ItemsSearchResults";
+import ItemsSearchResult from "_reducers/Items/ItemsSearchResult";
 
 export default combineReducers({
-  ItemsSearchResults
+  ItemsSearchResult
 });

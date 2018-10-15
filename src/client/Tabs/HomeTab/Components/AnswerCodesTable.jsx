@@ -131,7 +131,7 @@ class AnswerCodesTable extends React.Component {
             type="radio"
             name="answerCodes"
             uid={answerCodeUID}
-            defaultChecked={answerCodeUID === currentAnswerCodeUID}
+            checked={answerCodeUID === currentAnswerCodeUID.toString()}
             onChange={this.handleCodeSelectionChange}
           />
         </td>

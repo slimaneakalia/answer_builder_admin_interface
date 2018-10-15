@@ -1,27 +1,22 @@
-import React from "react";
 import AnswerItemsDashboard from "_items/Components/AnswerItemsDashboard";
-import WrapTableContainer from "_shared/Containers/WrapTableContainer";
+import { connect } from "react-redux";
 
-const searchByName = e => {
+const searchByName = (e, dispatch) => {
   console.log("Search by name event was detected !");
   console.log(e);
 };
 
-const searchBytext = e => {
+const searchBytext = (e, dispatch) => {
   console.log("Search by text event was detected !");
   console.log(e);
 };
 
-const Component = () => (
-  <AnswerItemsDashboard
-    searchByName={searchByName}
-    searchBytext={searchBytext}
-  />
-);
+const mapDispatchToProps = dispatch => ({
+  searchByName: e => searchByName(e, dispatch),
+  searchBytext: e => searchBytext(e, dispatch)
+});
 
-const AnswerItemsDashboardContainer = WrapTableContainer(
-  Component,
-  "Answer items"
-);
-
-export default AnswerItemsDashboardContainer;
+export default connect(
+  null,
+  mapDispatchToProps
+)(AnswerItemsDashboard);
