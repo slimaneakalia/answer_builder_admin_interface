@@ -3,8 +3,6 @@
 */
 const knexMySql = require("../db");
 const dbMiddleware = require("../middlewares/dbMiddleware.js");
-const AnswerVariablesModel = require("./AnswerVariablesModel.js");
-const AnswersModel = require("./AnswersModel.js");
 
 const tableName = "answeritem";
 
@@ -18,8 +16,23 @@ function getAllByText(text) {
     .then(data => AnswersModel.findByAnswerItems(data)); */
 }
 
-function getAllByCriterias(query) {
-  return knexMySql(tableName).where(query);
+function getAllByCriterias(queryParam) {
+  const query = { ...queryParam };
+  let result = knexMySql(tableName);
+
+  if (query.Language) {
+    const languages = query.Language.split(",");
+    delete query.Language;
+    result = result.whereIn("Language", languages);
+  }
+
+  if (query.Channel) {
+    const channels = query.Channel.split(",");
+    delete query.Channel;
+    result = result.whereIn("Channel", channels);
+  }
+
+  return result.where(query);
 }
 
 function getAllByAnswer(answerUID) {

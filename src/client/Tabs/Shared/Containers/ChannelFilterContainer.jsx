@@ -3,11 +3,13 @@
 */
 import { connect } from "react-redux";
 import SearchFilter from "_shared/Components/SearchFilter";
+import { updateFilterId } from "_action_creators/Channels";
 
 const updateFilter = (e, dispatch) => {
-  console.log("New update channel event was detected !");
-  console.log(e);
-  console.log(dispatch);
+  const id = e.currentTarget.getAttribute("id");
+  console.log(`Channel id : ${id}`);
+
+  dispatch(updateFilterId(id));
 };
 
 const constants = {

@@ -81,7 +81,12 @@ class AnswerItemTableContentComponent extends React.Component {
     }
   };
 
-  createAnswerItemRow = (answerItemData, answerItemUID) => {
+  createAnswerItemRow = (
+    answerItemData,
+    answerItemUID,
+    languages,
+    channels
+  ) => {
     let rowColumns;
     let ref;
     let renderedRowColumns;
@@ -96,7 +101,14 @@ class AnswerItemTableContentComponent extends React.Component {
       dataFields.forEach(key => {
         ref = React.createRef();
         refs[key] = ref;
-        rowColumns[key] = <SmartTD ref={ref} value={answerItemData[key]} />;
+        let value = answerItemData[key];
+
+        if (key === "Language" && languages[value])
+          value = languages[value].Language_label;
+        else if (key === "Channel" && channels[value])
+          value = channels[value].Channel_label;
+
+        rowColumns[key] = <SmartTD ref={ref} value={value} />;
       });
 
       renderedRowColumns = { ...rowColumns };
@@ -135,7 +147,7 @@ class AnswerItemTableContentComponent extends React.Component {
     let finalContent;
     if (dataKeys.length > 0) {
       const rows = dataKeys.map(key =>
-        this.createAnswerItemRow(data[key], key)
+        this.createAnswerItemRow(data[key], key, languages, channels)
       );
 
       finalContent = (

@@ -6,7 +6,10 @@ const ActionTypes = keyMirror({
   FETCH_CODES: null,
   FETCH_ITEMS: null,
   FETCH_VARIABLES: null,
-  FETCH_COMMANDS: null
+  FETCH_COMMANDS: null,
+  UPDATE_SEARCH_TEXT: null,
+  UPDATE_CHANNEL_FILTER: null,
+  UPDATE_LANGUAGE_FILTER: null
 });
 
 export default ActionTypes;

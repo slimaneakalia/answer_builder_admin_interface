@@ -4,6 +4,7 @@ import Channels from "_reducers/Channels";
 import Codes from "_reducers/Codes";
 import Commands from "_reducers/Commands";
 import Variables from "_reducers/Variables";
+import Search from "_reducers/Search";
 import Items from "_reducers/Items";
 import { routerReducer } from "react-router-redux";
 
@@ -14,5 +15,6 @@ export default combineReducers({
   Commands,
   Variables,
   Items,
+  Search,
   routing: routerReducer
 });

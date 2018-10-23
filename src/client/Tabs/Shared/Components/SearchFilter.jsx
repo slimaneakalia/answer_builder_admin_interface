@@ -13,6 +13,7 @@ function createFilterItem(item, id, textkey, updateFilter) {
       type="button"
       className={`btn ${classNames[0]}`}
       key={id}
+      id={id}
       onClick={updateFilter}
       style={{ marginRight: "10px" }}
     >

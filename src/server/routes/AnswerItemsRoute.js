@@ -103,6 +103,9 @@ router.get("/all_by_answer", (req, res) => {
 // Request example : {'Language' : 1, 'Channel' : 'C'}
 router.get("/all_by_criterias", (req, res) => {
   const { query } = req;
+  console.log("New /all_by_criterias query");
+  console.log(query);
+
   routesMiddleware.sendDBResult(res, AnswerItemsModel.getAllByCriterias(query));
 });
 

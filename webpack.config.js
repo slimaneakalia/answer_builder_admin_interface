@@ -97,8 +97,8 @@ module.exports = {
     })
   ],
   performance: {
-    maxAssetSize: 500000,
-    maxEntrypointSize: 500000
+    maxAssetSize: 600000,
+    maxEntrypointSize: 600000
   },
   resolve: {
     modules: ["node_modules"],

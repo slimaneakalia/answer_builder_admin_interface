@@ -7,6 +7,7 @@ import SearchFilter from "_shared/Components/SearchFilter";
 const updateFilter = (e, dispatch) => {
   console.log("New update language event was detected !");
   console.log(e);
+  console.log(e.currentTarget);
   console.log(dispatch);
 };
 

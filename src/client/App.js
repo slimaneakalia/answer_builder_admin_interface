@@ -9,7 +9,7 @@ import ItemTab from "_items";
 import VariablesTab from "_variables";
 import CommandsTab from "_commands";
 import SideBar from "_shared/Components/SideBar";
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import rootReducer from "_reducers";
 import fetchLanguages from "_action_creators/Languages";
@@ -20,6 +20,8 @@ import fetchAnswerVariables from "_action_creators/AnswerVariables";
 import fetchCommands from "_action_creators/Commands";
 import { createBrowserHistory } from "history";
 import { syncHistoryWithStore } from "react-router-redux";
+import thunkMiddleware from "redux-thunk";
+import { composeWithDevTools } from "redux-devtools-extension";
 
 const activeClassName = "active";
 const routes = {
@@ -60,7 +62,7 @@ const tabs = [
 
 const store = createStore(
   rootReducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  composeWithDevTools(applyMiddleware(thunkMiddleware))
 );
 
 fetchLanguages(store);
