@@ -13,6 +13,11 @@ export default function Languages(state = {}, action) {
       });
       return newState;
 
+    case ActionTypes.UPDATE_LANGUAGE_FILTER:
+      newState = { ...state };
+      if (newState[action.id])
+        newState[action.id].selected = !newState[action.id].selected;
+      return newState;
     default:
       return state;
   }

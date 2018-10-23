@@ -3,12 +3,11 @@
 */
 import { connect } from "react-redux";
 import SearchFilter from "_shared/Components/SearchFilter";
+import { updateFilterId } from "_action_creators/Languages";
 
 const updateFilter = (e, dispatch) => {
-  console.log("New update language event was detected !");
-  console.log(e);
-  console.log(e.currentTarget);
-  console.log(dispatch);
+  const id = e.currentTarget.getAttribute("id");
+  dispatch(updateFilterId(id));
 };
 
 const constants = {

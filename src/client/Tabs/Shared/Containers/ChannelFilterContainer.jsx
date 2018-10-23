@@ -7,8 +7,6 @@ import { updateFilterId } from "_action_creators/Channels";
 
 const updateFilter = (e, dispatch) => {
   const id = e.currentTarget.getAttribute("id");
-  console.log(`Channel id : ${id}`);
-
   dispatch(updateFilterId(id));
 };
 
