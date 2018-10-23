@@ -8,6 +8,7 @@ import SmartTD from "_shared/Components/SmartTD";
 import Button from "_shared/Components/Button";
 import ManageAnswerVariable from "_home//Components/ManageAnswerVariable";
 import AddItemButton from "_shared/Components/AddItemButton";
+import NoResultLabel from "_shared/Components/NoResultLabel";
 
 export const dataFields = ["Name", "Value", "_Group", "SubGroup", "Activated"];
 
@@ -153,12 +154,15 @@ class AnswerVariablesTable extends React.Component {
       addAnswerVariable
     } = this.state;
     const { data, withAddItemButton } = this.props;
-    const rows = Object.keys(data).map(key =>
-      this.createAnswerVariableRow(data[key], key)
-    );
 
-    return (
-      <React.Fragment>
+    const dataKeys = Object.keys(data);
+    let finalContent;
+    if (dataKeys.length > 0) {
+      const rows = dataKeys.map(key =>
+        this.createAnswerVariableRow(data[key], key)
+      );
+
+      finalContent = (
         <table className="table table-bordered table-hover table-striped">
           <thead>
             <tr>
@@ -174,6 +178,14 @@ class AnswerVariablesTable extends React.Component {
           </thead>
           <tbody>{rows}</tbody>
         </table>
+      );
+    } else {
+      finalContent = <NoResultLabel />;
+    }
+
+    return (
+      <React.Fragment>
+        {finalContent}
 
         {withAddItemButton && (
           <AddItemButton onClick={this.addAnswerVariableClick}>

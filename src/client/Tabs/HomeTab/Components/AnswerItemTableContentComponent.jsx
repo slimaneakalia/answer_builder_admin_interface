@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import SmartTD from "_shared/Components/SmartTD";
 import Button from "_shared/Components/Button";
 import EditAnswerItem from "_home/Components/EditAnswerItem";
+import NoResultLabel from "_shared/Components/NoResultLabel";
 import _ from "lodash";
 
 /* function getFromRow(row, field) {
@@ -129,11 +130,15 @@ class AnswerItemTableContentComponent extends React.Component {
     this.rows = {};
     const { data, languages, channels, checkDescription } = this.props;
     const { editAnswerItem, targetAnswerItemUID } = this.state;
-    const rows = Object.keys(data).map(key =>
-      this.createAnswerItemRow(data[key], key)
-    );
-    return (
-      <React.Fragment>
+
+    const dataKeys = Object.keys(data);
+    let finalContent;
+    if (dataKeys.length > 0) {
+      const rows = dataKeys.map(key =>
+        this.createAnswerItemRow(data[key], key)
+      );
+
+      finalContent = (
         <table className="table table-bordered table-hover table-striped">
           <thead>
             <tr>
@@ -150,6 +155,14 @@ class AnswerItemTableContentComponent extends React.Component {
           </thead>
           <tbody>{rows}</tbody>
         </table>
+      );
+    } else {
+      finalContent = <NoResultLabel />;
+    }
+
+    return (
+      <React.Fragment>
+        {finalContent}
         {editAnswerItem && (
           <EditAnswerItem
             answerItemUID={targetAnswerItemUID}

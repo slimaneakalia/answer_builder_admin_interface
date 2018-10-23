@@ -5,6 +5,10 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
 
+function sayHello() {
+  console.log("Piw piw");
+}
+
 function SideBar({ tabs, activeClassName }) {
   const links = tabs.map(tab => (
     <li>
@@ -13,6 +17,7 @@ function SideBar({ tabs, activeClassName }) {
         exact
         className={tab.className}
         activeClassName={activeClassName}
+        onClick={sayHello}
       >
         {tab.label}
       </NavLink>

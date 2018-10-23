@@ -8,6 +8,7 @@ import Button from "_shared/Components/Button";
 import CreateNewAnswerItemModal from "_home/Components/CreateNewAnswerItemModal";
 import CreateNewAnswerCodeModal from "_home/Components/CreateNewAnswerCodeModal";
 import AddItemButton from "_shared/Components/AddItemButton";
+import NoResultLabel from "_shared/Components/NoResultLabel";
 
 function getFromRow(row, field) {
   return row.refs[field].current;
@@ -162,13 +163,14 @@ class AnswerCodesTable extends React.Component {
       withAddItemButton
     } = this.props;
     const { addAnswerItem, targetAnswerCodeUID, addAnswerCode } = this.state;
+    const dataKeys = Object.keys(data);
+    let finalContent;
+    if (dataKeys.length > 0) {
+      const rows = dataKeys.map(key =>
+        this.createAnswerCodeItem(data[key], key)
+      );
 
-    const rows = Object.keys(data).map(key =>
-      this.createAnswerCodeItem(data[key], key)
-    );
-
-    return (
-      <React.Fragment>
+      finalContent = (
         <table className="table table-bordered table-hover table-striped codes-table">
           <thead>
             <tr>
@@ -182,6 +184,14 @@ class AnswerCodesTable extends React.Component {
           </thead>
           <tbody>{rows}</tbody>
         </table>
+      );
+    } else {
+      finalContent = <NoResultLabel />;
+    }
+
+    return (
+      <React.Fragment>
+        {finalContent}
         {withAddItemButton && (
           <AddItemButton onClick={this.addAnswerCode}>
             Add new Answer Code
