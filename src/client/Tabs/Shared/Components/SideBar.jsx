@@ -5,11 +5,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import uuid4 from "uuid/v4";
 
-function sayHello() {
-  console.log("Piw piw");
-}
-
-function SideBar({ tabs, activeClassName }) {
+function SideBar({ tabs, activeClassName, onTabChange }) {
   const links = tabs.map(tab => (
     <li key={uuid4()}>
       <NavLink
@@ -17,7 +13,7 @@ function SideBar({ tabs, activeClassName }) {
         exact
         className={tab.className}
         activeClassName={activeClassName}
-        onClick={sayHello}
+        onClick={onTabChange}
       >
         {tab.label}
       </NavLink>

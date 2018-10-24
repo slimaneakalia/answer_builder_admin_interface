@@ -1,5 +1,6 @@
 import { GETData, POSTData } from "_action_creators/ApiMiddleware";
 import ActionTypes from "_action_creators/ActionTypes";
+import { fetchAnswerItemsByCriterias } from "_action_creators/AnswerItems";
 
 export default function fetchAnswerCodes(store) {
   GETData("/answers/all")
@@ -59,4 +60,9 @@ export function removeCode(request, dispatch) {
 export function updateCurrentCode(newCode, dispatch) {
   const action = { type: ActionTypes.UPDATE_CURRENT_CODE, newCode };
   dispatch(action);
+  const asyncAction = (dispatchAsync, getState) => {
+    fetchAnswerItemsByCriterias(getState(), dispatchAsync);
+  };
+
+  dispatch(asyncAction);
 }

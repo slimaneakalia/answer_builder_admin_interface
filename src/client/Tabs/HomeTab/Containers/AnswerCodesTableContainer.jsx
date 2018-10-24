@@ -23,9 +23,6 @@ const editAnswerCode = (answerCodeUID, code, description, dispatch) => {
   );
 };
 
-const createNewAnswerItem = (answerItemData, dispatch) =>
-  createItem(answerItemData, dispatch);
-
 const createNewAnswerCode = (answerCodeData, dispatch) => {
   console.log("New AnswerCode to add :");
   console.log(answerCodeData);
@@ -33,10 +30,6 @@ const createNewAnswerCode = (answerCodeData, dispatch) => {
     resolve();
     // reject("Internal Server error : Minoucha");
   });
-};
-
-const selectNewCode = (codeUID, dispatch) => {
-  updateCurrentCode(codeUID, dispatch);
 };
 
 const mapStateToProps = state => ({
@@ -50,11 +43,10 @@ const mapDispatchToProps = dispatch => ({
   editAnswerCode: (answerCodeUID, code, description) =>
     editAnswerCode(answerCodeUID, code, description, dispatch),
   remove: answerCodeUID => remove(answerCodeUID, dispatch),
-  createNewAnswerItem: answerItemData =>
-    createNewAnswerItem(answerItemData, dispatch),
+  createNewAnswerItem: answerItemData => createItem(answerItemData, dispatch),
   createNewAnswerCode: answerCodeData =>
     createNewAnswerCode(answerCodeData, dispatch),
-  selectNewCode: codeUID => selectNewCode(codeUID, dispatch),
+  selectNewCode: codeUID => updateCurrentCode(codeUID, dispatch),
   checkDescription
 });
 

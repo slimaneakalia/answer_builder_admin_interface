@@ -63,19 +63,27 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(thunkMiddleware))
 );
 
-fetchLanguages(store);
-fetchChannels(store);
-fetchAnswerCodes(store);
-fetchAnswerItems(store);
-fetchAnswerVariables(store);
-fetchCommands(store);
+function init() {
+  fetchLanguages(store);
+  fetchChannels(store);
+  fetchAnswerCodes(store);
+  fetchAnswerItems(store);
+  fetchAnswerVariables(store);
+  fetchCommands(store);
+}
+
+init();
 
 export default function App() {
   return (
     <Provider store={store}>
       <Router>
         <React.Fragment>
-          <SideBar activeClassName={activeClassName} tabs={tabs} />
+          <SideBar
+            activeClassName={activeClassName}
+            tabs={tabs}
+            onTabChange={init}
+          />
           <Route path={routes.home} exact component={HomeTab} />
           <Route path={routes.items} exact component={ItemTab} />
           <Route path={routes.codes} exact component={CodesTab} />

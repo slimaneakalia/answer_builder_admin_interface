@@ -10,7 +10,7 @@ function extractFilteringArray(state, filterKey) {
 }
 
 function getAnswerItemCriteria(state) {
-  const { Search } = state;
+  const { Search, Codes } = state;
   const criterias =
     Search.text && Search.text.length > 0 ? _.pick(state.Search, ["text"]) : {};
 
@@ -19,6 +19,9 @@ function getAnswerItemCriteria(state) {
 
   if (languages.length > 0) criterias.Language = languages.toString();
   if (channels.length > 0) criterias.Channel = channels.toString();
+
+  if (Codes.currentAnswerCodeUID && Codes.currentAnswerCodeUID.length > 0)
+    criterias.Answer_UID = Codes.currentAnswerCodeUID;
 
   return criterias;
 }
@@ -52,9 +55,6 @@ export function fetchAnswerItemsByCriterias(currentState, dispatch) {
 }
 
 export function fetchAnswerItemsByText(text, dispatch) {
-  const actionText = { type: ActionTypes.UPDATE_SEARCH_TEXT, text };
-  dispatch(actionText);
-
   const asyncAction = (dispatchAsync, getState) => {
     fetchAnswerItemsByCriterias(getState(), dispatchAsync);
   };

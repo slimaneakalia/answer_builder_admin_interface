@@ -10,13 +10,6 @@ import {
   removeItem
 } from "_action_creators/AnswerItems";
 
-const remove = (answerItemUID, dispatch) => removeItem(answerItemUID, dispatch);
-
-const edit = (answerItem, dispatch) => editItem(answerItem, dispatch);
-
-const duplicate = (answerItemUID, dispatch) =>
-  duplicateItem(answerItemUID, dispatch);
-
 const mapStateToProps = state => ({
   channels: state.Channels,
   languages: state.Languages,
@@ -24,9 +17,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  remove: answerItemUID => remove(answerItemUID, dispatch),
-  edit: answerItem => edit(answerItem, dispatch),
-  duplicate: answerItemUID => duplicate(answerItemUID, dispatch),
+  remove: answerItemUID => removeItem(answerItemUID, dispatch),
+  edit: answerItem => editItem(answerItem, dispatch),
+  duplicate: answerItemUID => duplicateItem(answerItemUID, dispatch),
   checkDescription
 });
 

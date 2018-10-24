@@ -147,6 +147,12 @@ function duplicateVariable(variableUID) {
   });
 }
 
+function removeVariable(variableUID) {
+  return knexMySql(tableName)
+    .where("AnswerVariable_UID", variableUID)
+    .del();
+}
+
 module.exports = {
   getAll,
   findByAnswerItems,
@@ -154,5 +160,6 @@ module.exports = {
   simulate,
   find,
   addVariable,
-  duplicateVariable
+  duplicateVariable,
+  removeVariable
 };

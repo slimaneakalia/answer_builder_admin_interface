@@ -68,4 +68,14 @@ router.post("/duplicate_variable", (req, res) => {
   } else res.sendStatus(400);
 });
 
+router.post("/remove_variable", (req, res) => {
+  const variableUID = req.body.AnswerVariable_UID;
+  if (variableUID) {
+    routesMiddleware.sendDBResult(
+      res,
+      AnswerVariablesModel.removeVariable(variableUID)
+    );
+  } else res.sendStatus(400);
+});
+
 module.exports = router;

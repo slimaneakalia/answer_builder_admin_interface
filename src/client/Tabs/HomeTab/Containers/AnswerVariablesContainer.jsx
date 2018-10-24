@@ -3,23 +3,11 @@
 */
 import { connect } from "react-redux";
 import AnswerVariablesTable from "_home/Components/AnswerVariablesTable";
-
-const remove = answerVariableUID => {
-  console.log(`AnswerVariableUID to remove : ${answerVariableUID}`);
-};
-
-const duplicate = answerVariableUID => {
-  console.log(`AnswerVariableUID to duplicate : ${answerVariableUID}`);
-};
-
-const edit = answerVariableData => {
-  console.log(`New Edition with data to add :`);
-  console.log(answerVariableData);
-  return new Promise((resolve, reject) => {
-    resolve();
-    // reject("Internal Server error : Minoucha");
-  });
-};
+import {
+  editVariable,
+  duplicateVariable,
+  removeVariable
+} from "_action_creators/AnswerVariables";
 
 const create = answerVariableData => {
   console.log("New AnswerVariable to add :");
@@ -35,9 +23,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  edit: answerVariableData => edit(answerVariableData, dispatch),
-  duplicate: answerVariableUID => duplicate(answerVariableUID, dispatch),
-  remove: answerVariableUID => remove(answerVariableUID, dispatch),
+  edit: answerVariableData => editVariable(answerVariableData, dispatch),
+  duplicate: answerVariableUID =>
+    duplicateVariable(answerVariableUID, dispatch),
+  remove: answerVariableUID => removeVariable(answerVariableUID, dispatch),
   create: answerVariableData => create(answerVariableData, dispatch)
 });
 
