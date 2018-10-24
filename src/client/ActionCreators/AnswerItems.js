@@ -38,9 +38,6 @@ export default function fetchAnswerItems(store) {
 export function fetchAnswerItemsByCriterias(currentState, dispatch) {
   const criterias = getAnswerItemCriteria(currentState);
 
-  console.log("Criterias :");
-  console.log(criterias);
-
   GETData("/answer_items/all_by_criterias", criterias)
     .then(result => result.json())
     .then(result => {
@@ -71,12 +68,75 @@ export function createItem(answerItemData, dispatch) {
     const asyncAction = (dispatchAsync, getState) => {
       POSTData("/answer_items/add_item", answerItemData, true)
         .then(() => {
-          console.log("createItem resolving");
           resolve();
           fetchAnswerItemsByCriterias(getState(), dispatchAsync);
         })
-        .catch(jsonError => {
-          reject(jsonError.error);
+        .catch(error => {
+          if (typeof error === "object") reject(error.error);
+          else reject(error);
+        });
+    };
+
+    dispatch(asyncAction);
+  });
+}
+
+// answerItemData structure : API and Database structure (without Answer_UID)
+export function editItem(answerItem, dispatch) {
+  return new Promise((resolve, reject) => {
+    const asyncAction = (dispatchAsync, getState) => {
+      POSTData("/answer_items/edit_item", answerItem, true)
+        .then(() => {
+          resolve();
+          fetchAnswerItemsByCriterias(getState(), dispatchAsync);
+        })
+        .catch(error => {
+          if (typeof error === "object") reject(error.error);
+          else reject(error);
+        });
+    };
+
+    dispatch(asyncAction);
+  });
+}
+
+export function duplicateItem(answerItemUID, dispatch) {
+  return new Promise((resolve, reject) => {
+    const asyncAction = (dispatchAsync, getState) => {
+      POSTData(
+        "/answer_items/duplicate_item",
+        { AnswerItem_UUID: answerItemUID },
+        true
+      )
+        .then(() => {
+          resolve();
+          fetchAnswerItemsByCriterias(getState(), dispatchAsync);
+        })
+        .catch(error => {
+          if (typeof error === "object") reject(error.error);
+          else reject(error);
+        });
+    };
+
+    dispatch(asyncAction);
+  });
+}
+
+export function removeItem(answerItemUID, dispatch) {
+  return new Promise((resolve, reject) => {
+    const asyncAction = (dispatchAsync, getState) => {
+      POSTData(
+        "/answer_items/remove_item",
+        { AnswerItem_UUID: answerItemUID },
+        true
+      )
+        .then(() => {
+          resolve();
+          fetchAnswerItemsByCriterias(getState(), dispatchAsync);
+        })
+        .catch(error => {
+          if (typeof error === "object") reject(error.error);
+          else reject(error);
         });
     };
 

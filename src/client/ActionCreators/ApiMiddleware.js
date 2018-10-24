@@ -3,9 +3,6 @@ const POST_OPTIONS = {
   method: "POST"
 };
 
-console.log("Api url");
-console.log(apiURL);
-
 const createPostRequest = (data, isJSON) => {
   const request = { ...POST_OPTIONS };
 

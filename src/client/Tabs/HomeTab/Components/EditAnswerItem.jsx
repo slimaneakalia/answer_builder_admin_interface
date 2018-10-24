@@ -32,7 +32,7 @@ class EditAnswerItem extends React.Component {
       const answerItemData = this.getDataFromFields();
       edit(answerItemData)
         .then(() => {
-          this.setState({ show: false });
+          // this.setState({ show: false });
         })
         .catch(error => {
           const { globalErrors } = this.state;
@@ -257,9 +257,8 @@ class EditAnswerItem extends React.Component {
                   className="form-control"
                   onChange={this.handleChange}
                   style={{ resize: "none" }}
-                >
-                  {Text}
-                </textarea>
+                  value={Text}
+                />
                 {this.createErrorDivs("Text")}
               </div>
             </div>

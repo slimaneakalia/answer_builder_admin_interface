@@ -4,23 +4,18 @@
 import { connect } from "react-redux";
 import AnswerItemTableContentComponent from "_home/Components/AnswerItemTableContentComponent";
 import checkDescription from "_shared/Helpers/AnswerItemHelper";
+import {
+  editItem,
+  duplicateItem,
+  removeItem
+} from "_action_creators/AnswerItems";
 
-const remove = (answerItemUID, dispatch) => {
-  console.log(`Answer UID to remove : ${answerItemUID}`);
-};
+const remove = (answerItemUID, dispatch) => removeItem(answerItemUID, dispatch);
 
-const edit = (answerItem, dispatch) => {
-  console.log(`New Edition with data to do :`);
-  console.log(answerItem);
-  return new Promise((resolve, reject) => {
-    resolve("Edition error from minoucha");
-    // reject("Edition error from minoucha");
-  });
-};
+const edit = (answerItem, dispatch) => editItem(answerItem, dispatch);
 
-const duplicate = (answerItemUID, dispatch) => {
-  console.log(`Answer UID to duplicate : ${answerItemUID}`);
-};
+const duplicate = (answerItemUID, dispatch) =>
+  duplicateItem(answerItemUID, dispatch);
 
 const mapStateToProps = state => ({
   channels: state.Channels,

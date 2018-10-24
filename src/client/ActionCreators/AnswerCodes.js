@@ -55,3 +55,8 @@ export function removeCode(request, dispatch) {
       removeCode(request, dispatch);
     });
 }
+
+export function updateCurrentCode(newCode, dispatch) {
+  const action = { type: ActionTypes.UPDATE_CURRENT_CODE, newCode };
+  dispatch(action);
+}

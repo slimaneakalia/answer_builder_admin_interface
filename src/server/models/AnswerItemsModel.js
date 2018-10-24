@@ -67,6 +67,12 @@ function duplicateItem(itemId) {
   });
 }
 
+function removeItem(itemId) {
+  return knexMySql(tableName)
+    .where("AnswerItem_UUID", itemId)
+    .del();
+}
+
 function updateField(item, fieldName) {
   return knexMySql(tableName)
     .where("AnswerItem_UUID", item.AnswerItem_UUID)
@@ -92,5 +98,6 @@ module.exports = {
   updateField,
   setAsDefault,
   getAllByAnswer,
-  getAllByCriterias
+  getAllByCriterias,
+  removeItem
 };

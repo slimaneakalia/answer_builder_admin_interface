@@ -4,7 +4,11 @@
 import AnswerCodesTable from "_home/Components/AnswerCodesTable";
 import checkDescription from "_shared/Helpers/AnswerItemHelper";
 import { connect } from "react-redux";
-import { editCode, removeCode } from "_action_creators/AnswerCodes";
+import {
+  editCode,
+  removeCode,
+  updateCurrentCode
+} from "_action_creators/AnswerCodes";
 import { createItem } from "_action_creators/AnswerItems";
 
 const remove = (answerCodeUID, dispatch) => {
@@ -13,11 +17,6 @@ const remove = (answerCodeUID, dispatch) => {
 };
 
 const editAnswerCode = (answerCodeUID, code, description, dispatch) => {
-  console.log(`New Edition with data to add :`);
-  console.log(`answerCodeUID : ${answerCodeUID}`);
-  console.log(`code : ${code}`);
-  console.log(`description : ${description}`);
-
   editCode(
     { Answer_UID: answerCodeUID, Code: code, Description: description },
     dispatch
@@ -37,8 +36,7 @@ const createNewAnswerCode = (answerCodeData, dispatch) => {
 };
 
 const selectNewCode = (codeUID, dispatch) => {
-  console.log("New Code to select");
-  console.log(codeUID);
+  updateCurrentCode(codeUID, dispatch);
 };
 
 const mapStateToProps = state => ({

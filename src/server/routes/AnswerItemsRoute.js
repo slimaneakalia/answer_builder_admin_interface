@@ -69,7 +69,6 @@ router.post("/add_item", (req, res) => {
 router.post("/edit_item", (req, res) => {
   const requiredFields = [
     "AnswerItem_UUID",
-    "Answer_UID",
     "Name",
     "Language",
     "Channel",
@@ -98,6 +97,13 @@ router.post("/duplicate_item", (req, res) => {
       res,
       AnswerItemsModel.duplicateItem(itemUUID)
     );
+  } else res.sendStatus(400);
+});
+
+router.post("/remove_item", (req, res) => {
+  const itemUUID = req.body.AnswerItem_UUID;
+  if (itemUUID) {
+    routesMiddleware.sendDBResult(res, AnswerItemsModel.removeItem(itemUUID));
   } else res.sendStatus(400);
 });
 

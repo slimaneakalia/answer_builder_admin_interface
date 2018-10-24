@@ -8,6 +8,10 @@ export default function currentAnswerCodeUID(state = "", action) {
     case ActionTypes.REMOVE_CODE:
       if (action.Answer_UID === state) return "";
       return `${state}`;
+
+    case ActionTypes.UPDATE_CURRENT_CODE:
+      return action.newCode;
+
     default:
       return state;
   }

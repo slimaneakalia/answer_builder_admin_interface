@@ -63,11 +63,6 @@ class AnswerCodesTable extends React.Component {
   creatingNewAnswerItem = event => {
     event.preventDefault();
     const targetUID = event.currentTarget.getAttribute("uid");
-    console.log(
-      `this.setState({ addAnswerItem: true, targetAnswerCodeUID: ${targetUID} });`
-    );
-    console.log("current state");
-    console.log(this.state);
     this.setState({ addAnswerItem: true, targetAnswerCodeUID: targetUID });
   };
 
@@ -221,9 +216,6 @@ class AnswerCodesTable extends React.Component {
     } else {
       finalContent = <NoResultLabel />;
     }
-
-    console.log("new state");
-    console.log(this.state);
 
     return (
       <React.Fragment>
