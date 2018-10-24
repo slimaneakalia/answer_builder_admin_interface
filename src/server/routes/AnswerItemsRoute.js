@@ -21,12 +21,6 @@ router.get("/all", (req, res) => {
   routesMiddleware.sendDBResult(res, AnswerItemsModel.getAll());
 });
 
-router.get("/all_by_text", (req, res) => {
-  let textQuery = req.query.text;
-  if (typeof textQuery === "undefined" || textQuery == null) textQuery = "";
-  routesMiddleware.sendDBResult(res, AnswerItemsModel.getAllByText(textQuery));
-});
-
 router.post("/add_item", (req, res) => {
   const requiredFields = [
     "Answer_UID",

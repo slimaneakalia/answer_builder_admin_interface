@@ -5,7 +5,7 @@ export default function Search(state = {}, action) {
   switch (action.type) {
     case ActionTypes.UPDATE_SEARCH_TEXT:
       newState = { ...state };
-      newState.searchText = action.text;
+      newState.text = action.text;
       return newState;
 
     default:

@@ -10,15 +10,14 @@ function getAll() {
   return dbMiddleware.getAll(tableName);
 }
 
-function getAllByText(text) {
-  return knexMySql(tableName).where("Text", "like", `%${text}%`);
-  /* .then(answerItems => AnswerVariablesModel.findByAnswerItems(answerItems))
-    .then(data => AnswersModel.findByAnswerItems(data)); */
-}
-
 function getAllByCriterias(queryParam) {
   const query = { ...queryParam };
   let result = knexMySql(tableName);
+
+  if (query.text) {
+    result = result.where("Text", "like", `%${query.text}%`);
+    delete query.text;
+  }
 
   if (query.Language) {
     const languages = query.Language.split(",");
@@ -86,7 +85,6 @@ function setAsDefault(item) {
 
 module.exports = {
   getAll,
-  getAllByText,
   addItem,
   editItem,
   duplicateItem,
