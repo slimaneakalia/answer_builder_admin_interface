@@ -15,9 +15,12 @@ const AnswerCodesPanel = ({ Code, Description }) => (
 
     <div className="form-group">
       <label htmlFor="answer-desc">Description</label>
-      <textarea className="form-control" id="answer-desc" disabled>
-        {Description}
-      </textarea>
+      <textarea
+        className="form-control"
+        id="answer-desc"
+        value={Description}
+        disabled
+      />
     </div>
   </form>
 );

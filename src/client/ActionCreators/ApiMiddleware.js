@@ -1,7 +1,10 @@
-const apiURL = `${window.location.href}api`;
+const apiURL = `http://${window.location.host}/api`;
 const POST_OPTIONS = {
   method: "POST"
 };
+
+console.log("apiURL");
+console.log(apiURL);
 
 const createPostRequest = (data, isJSON) => {
   const request = { ...POST_OPTIONS };

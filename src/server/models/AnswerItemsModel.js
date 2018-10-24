@@ -19,6 +19,11 @@ function getAllByCriterias(queryParam) {
     delete query.text;
   }
 
+  if (query.name) {
+    result = result.where("Name", "like", `%${query.name}%`);
+    delete query.name;
+  }
+
   if (query.Language) {
     const languages = query.Language.split(",");
     delete query.Language;

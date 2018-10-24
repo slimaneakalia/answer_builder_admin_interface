@@ -9,6 +9,8 @@ const ActionTypes = keyMirror({
   FETCH_COMMANDS: null,
 
   UPDATE_SEARCH_TEXT: null,
+  UPDATE_SEARCH_NAME: null,
+
   UPDATE_CHANNEL_FILTER: null,
   UPDATE_LANGUAGE_FILTER: null,
 

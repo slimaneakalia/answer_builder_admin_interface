@@ -8,6 +8,11 @@ export default function Search(state = {}, action) {
       newState.text = action.text;
       return newState;
 
+    case ActionTypes.UPDATE_SEARCH_NAME:
+      newState = { ...state };
+      newState.name = action.name;
+      return newState;
+
     default:
       return state;
   }

@@ -1,19 +1,10 @@
 import AnswerItemsDashboard from "_items/Components/AnswerItemsDashboard";
 import { connect } from "react-redux";
-
-const searchByName = (e, dispatch) => {
-  console.log("Search by name event was detected !");
-  console.log(e);
-};
-
-const searchBytext = (e, dispatch) => {
-  console.log("Search by text event was detected !");
-  console.log(e);
-};
+import { searchByName, searchByText } from "_action_creators/AnswerItems";
 
 const mapDispatchToProps = dispatch => ({
-  searchByName: e => searchByName(e, dispatch),
-  searchBytext: e => searchBytext(e, dispatch)
+  searchByName: input => searchByName(input.value, dispatch),
+  searchBytext: input => searchByText(input.value, dispatch)
 });
 
 export default connect(

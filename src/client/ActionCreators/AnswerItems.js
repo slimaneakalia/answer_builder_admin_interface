@@ -23,19 +23,9 @@ function getAnswerItemCriteria(state) {
   if (Codes.currentAnswerCodeUID && Codes.currentAnswerCodeUID.length > 0)
     criterias.Answer_UID = Codes.currentAnswerCodeUID;
 
-  return criterias;
-}
+  if (Search.name && Search.name.length > 0) criterias.name = Search.name;
 
-export default function fetchAnswerItems(store) {
-  GETData("/answer_items/all", {})
-    .then(result => result.json())
-    .then(result => {
-      const action = { type: ActionTypes.FETCH_ITEMS, data: result };
-      store.dispatch(action);
-    })
-    .catch(() => {
-      fetchAnswerItems(store);
-    });
+  return criterias;
 }
 
 export function fetchAnswerItemsByCriterias(currentState, dispatch) {
@@ -52,6 +42,10 @@ export function fetchAnswerItemsByCriterias(currentState, dispatch) {
       console.log(err);
       fetchAnswerItemsByCriterias(currentState, dispatch);
     });
+}
+
+export default function fetchAnswerItems(store) {
+  fetchAnswerItemsByCriterias(store.getState(), store.dispatch);
 }
 
 export function fetchAnswerItemsByText(text, dispatch) {
@@ -142,4 +136,24 @@ export function removeItem(answerItemUID, dispatch) {
 
     dispatch(asyncAction);
   });
+}
+
+export function searchByName(name, dispatch) {
+  const action = { type: ActionTypes.UPDATE_SEARCH_NAME, name };
+  dispatch(action);
+
+  const asyncAction = (dispatchAsync, getState) =>
+    fetchAnswerItemsByCriterias(getState(), dispatchAsync);
+
+  dispatch(asyncAction);
+}
+
+export function searchByText(text, dispatch) {
+  const action = { type: ActionTypes.UPDATE_SEARCH_TEXT, text };
+  dispatch(action);
+
+  const asyncAction = (dispatchAsync, getState) =>
+    fetchAnswerItemsByCriterias(getState(), dispatchAsync);
+
+  dispatch(asyncAction);
 }

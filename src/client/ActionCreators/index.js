@@ -11,3 +11,11 @@ export default function searchAllByText(text, dispatch) {
   fetchAnswerItemsByText(text, dispatch);
   fetchAnswerVariablesByText(text, dispatch);
 }
+
+export function initSearchCriterias(store) {
+  let action = { type: ActionTypes.UPDATE_SEARCH_TEXT, text: "" };
+  store.dispatch(action);
+
+  action = { type: ActionTypes.UPDATE_SEARCH_NAME, name: "" };
+  store.dispatch(action);
+}

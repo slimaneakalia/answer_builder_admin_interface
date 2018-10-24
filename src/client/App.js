@@ -12,6 +12,7 @@ import SideBar from "_shared/Components/SideBar";
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import rootReducer from "_reducers";
+import { initSearchCriterias } from "_action_creators";
 import fetchLanguages from "_action_creators/Languages";
 import fetchChannels from "_action_creators/Channels";
 import fetchAnswerCodes from "_action_creators/AnswerCodes";
@@ -64,6 +65,9 @@ const store = createStore(
 );
 
 function init() {
+  console.log("Initialization");
+  initSearchCriterias(store);
+
   fetchLanguages(store);
   fetchChannels(store);
   fetchAnswerCodes(store);
