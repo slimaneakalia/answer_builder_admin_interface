@@ -2,7 +2,6 @@
 	* @author{Slimane AKALIA} slimaneakalia@gmail.com, Linkedin.com/in/slimaneakalia
 */
 import React from "react";
-import PropTypes from "prop-types";
 
 const TabHeader = ({ label }) => (
   <header id="cm-header">
@@ -13,9 +12,5 @@ const TabHeader = ({ label }) => (
     </nav>
   </header>
 );
-
-TabHeader.propTypes = {
-  label: PropTypes.string.isRequired
-};
 
 export default TabHeader;

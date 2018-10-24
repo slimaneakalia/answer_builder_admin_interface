@@ -4,7 +4,6 @@ import AnswerItemTableContentContainer from "_home/Containers/AnswerItemTableCon
 import ChannelFilterContainer from "_shared/Containers/ChannelFilterContainer";
 import LanguageFilterContainer from "_shared/Containers/LanguageFilterContainer";
 import SearchTextContainer from "_shared/Containers/SearchTextContainer";
-import PropTypes from "prop-types";
 
 const AnswerItemsDashboard = ({ searchByName, searchBytext }) => (
   <React.Fragment>
@@ -39,10 +38,5 @@ const AnswerItemsDashboard = ({ searchByName, searchBytext }) => (
     <AnswerItemTableContentContainer withAddItemButton />
   </React.Fragment>
 );
-
-AnswerItemsDashboard.propTypes = {
-  searchByName: PropTypes.isRequired,
-  searchBytext: PropTypes.isRequired
-};
 
 export default AnswerItemsDashboard;

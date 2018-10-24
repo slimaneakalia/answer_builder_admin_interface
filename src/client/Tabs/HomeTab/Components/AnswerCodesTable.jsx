@@ -2,7 +2,6 @@
 	* @author{Slimane AKALIA} slimaneakalia@gmail.com, Linkedin.com/in/slimaneakalia
 */
 import React from "react";
-import PropTypes from "prop-types";
 import SmartTD from "_shared/Components/SmartTD";
 import Button from "_shared/Components/Button";
 import CreateNewAnswerItemModal from "_home/Components/CreateNewAnswerItemModal";
@@ -40,6 +39,7 @@ class AnswerCodesTable extends React.Component {
     const row = this.rows[targetUID];
 
     if (row) {
+      const editIcon = getFromRow(row, "EditIcon");
       if (getFromRow(row, "Code").isEditable()) {
         const { editAnswerCode } = this.props;
         editAnswerCode(
@@ -47,11 +47,13 @@ class AnswerCodesTable extends React.Component {
           getFromRow(row, "Code").getValue(),
           getFromRow(row, "Description").getValue()
         );
-      }
+        editIcon.className = "glyphicon glyphicon-pencil";
+      } else editIcon.className = "glyphicon glyphicon-floppy-disk";
 
       const refs = Object.values(row.refs);
       for (let i = 0; i < refs.length; i += 1) {
-        if (refs[i]) refs[i].current.inverseEditableState();
+        if (refs[i] && refs[i].current && refs[i].current.inverseEditableState)
+          refs[i].current.inverseEditableState();
       }
 
       this.forceUpdate();
@@ -77,14 +79,11 @@ class AnswerCodesTable extends React.Component {
 
     if (this.rows[answerCodeUID]) {
       rowColumns = this.rows[answerCodeUID];
-
-      if (getFromRow(rowColumns, "Code").isEditable()) {
-        className = "glyphicon glyphicon-floppy-disk";
-      }
     } else {
       const refs = {
         Code: React.createRef(),
-        Description: React.createRef()
+        Description: React.createRef(),
+        EditIcon: React.createRef()
       };
       rowColumns = {
         refs,
@@ -101,9 +100,17 @@ class AnswerCodesTable extends React.Component {
             contentEditable={false}
             value={answerData.Description}
           />
-        )
+        ),
+        EditIcon: <span ref={refs.EditIcon} className={className} />
       };
       this.rows[answerCodeUID] = rowColumns;
+    }
+
+    if (
+      getFromRow(rowColumns, "Code") &&
+      getFromRow(rowColumns, "Code").isEditable()
+    ) {
+      className = "glyphicon glyphicon-floppy-disk";
     }
 
     return (
@@ -112,7 +119,7 @@ class AnswerCodesTable extends React.Component {
         {rowColumns.Description}
         <td>
           <Button onClick={this.editOrSave} uid={answerCodeUID}>
-            <span className={className} />
+            {rowColumns.EditIcon}
           </Button>
         </td>
         <td>
@@ -218,19 +225,5 @@ class AnswerCodesTable extends React.Component {
     );
   }
 }
-
-AnswerCodesTable.propTypes = {
-  data: PropTypes.isRequired,
-  currentAnswerCodeUID: PropTypes.isRequired,
-  channels: PropTypes.isRequired,
-  languages: PropTypes.isRequired,
-  withAddItemButton: PropTypes.bool.isRequired,
-  createNewAnswerItem: PropTypes.isRequired,
-  createNewAnswerCode: PropTypes.isRequired,
-  checkDescription: PropTypes.isRequired,
-  remove: PropTypes.isRequired,
-  editAnswerCode: PropTypes.isRequired,
-  selectNewCode: PropTypes.isRequired
-};
 
 export default AnswerCodesTable;

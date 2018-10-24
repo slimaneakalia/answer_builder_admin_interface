@@ -34,4 +34,14 @@ router.post("/edit_description", (req, res) => {
   editField(req, res, "Description", AnswersModel.updateDescription);
 });
 
+router.post("/edit_all", (req, res) => {
+  console.log("New request on /edit/all");
+  console.log(req.body);
+  if (
+    _.every(["Answer_UID", "Code", "Description"], _.partial(_.has, req.body))
+  )
+    routesMiddleware.sendDBResult(res, AnswersModel.update(req.body));
+  else res.sendStatus(400);
+});
+
 module.exports = router;

@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 const AnswerCodesPanel = ({ Code, Description }) => (
   <form>
@@ -22,10 +21,5 @@ const AnswerCodesPanel = ({ Code, Description }) => (
     </div>
   </form>
 );
-
-AnswerCodesPanel.propTypes = {
-  Code: PropTypes.string.isRequired,
-  Description: PropTypes.string.isRequired
-};
 
 export default AnswerCodesPanel;

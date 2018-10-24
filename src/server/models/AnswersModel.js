@@ -53,10 +53,20 @@ function updateDescription(answer) {
   return updateField(answer, "Description");
 }
 
+function update(answer) {
+  return knexMySql(tableName)
+    .where("Answer_UID", answer.Answer_UID)
+    .update({
+      Code: answer.Code,
+      Description: answer.Description
+    });
+}
+
 module.exports = {
   getAll,
   findByAnswerItems,
   updateCode,
   updateDescription,
+  update,
   find
 };

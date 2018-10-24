@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import Modal from "_shared/Components/Modal";
 import { dataFields } from "_commands/Components/CommandsTable";
 import _ from "lodash";
@@ -192,11 +191,5 @@ class ManageCommand extends React.Component {
     );
   }
 }
-
-ManageCommand.propTypes = {
-  title: PropTypes.isRequired,
-  operation: PropTypes.isRequired,
-  closedModal: PropTypes.isRequired
-};
 
 export default ManageCommand;

@@ -3,7 +3,6 @@
 */
 import React from "react";
 import Modal from "_shared/Components/Modal";
-import PropTypes from "prop-types";
 import _ from "lodash";
 import uuid4 from "uuid/v4";
 
@@ -306,14 +305,5 @@ class CreateNewAnswerItemModal extends React.Component {
     );
   }
 }
-
-CreateNewAnswerItemModal.propTypes = {
-  closedModal: PropTypes.isRequired,
-  answerCodeUID: PropTypes.string.isRequired,
-  languages: PropTypes.isRequired,
-  channels: PropTypes.isRequired,
-  checkDescription: PropTypes.isRequired,
-  createNewAnswerItem: PropTypes.isRequired
-};
 
 export default CreateNewAnswerItemModal;

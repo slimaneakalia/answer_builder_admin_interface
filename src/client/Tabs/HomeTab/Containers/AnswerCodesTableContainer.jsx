@@ -4,6 +4,7 @@
 import AnswerCodesTable from "_home/Components/AnswerCodesTable";
 import checkDescription from "_shared/Helpers/AnswerItemHelper";
 import { connect } from "react-redux";
+import { editCode } from "_action_creators/AnswerCodes";
 
 const remove = (answerCodeUID, dispatch) => {
   console.log(`UID to remove : ${answerCodeUID}`);
@@ -14,6 +15,11 @@ const editAnswerCode = (answerCodeUID, code, description, dispatch) => {
   console.log(`answerCodeUID : ${answerCodeUID}`);
   console.log(`code : ${code}`);
   console.log(`description : ${description}`);
+
+  editCode(
+    { Answer_UID: answerCodeUID, Code: code, Description: description },
+    dispatch
+  );
 };
 
 const createNewAnswerItem = (answerItemData, dispatch) => {

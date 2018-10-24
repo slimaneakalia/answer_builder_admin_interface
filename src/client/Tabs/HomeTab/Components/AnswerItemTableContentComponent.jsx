@@ -1,9 +1,9 @@
 import React from "react";
-import PropTypes from "prop-types";
 import SmartTD from "_shared/Components/SmartTD";
 import Button from "_shared/Components/Button";
 import EditAnswerItem from "_home/Components/EditAnswerItem";
 import NoResultLabel from "_shared/Components/NoResultLabel";
+import uuid4 from "uuid/v4";
 import _ from "lodash";
 
 /* function getFromRow(row, field) {
@@ -108,7 +108,7 @@ class AnswerItemTableContentComponent extends React.Component {
         else if (key === "Channel" && channels[value])
           value = channels[value].Channel_label;
 
-        rowColumns[key] = <SmartTD ref={ref} value={value} />;
+        rowColumns[key] = <SmartTD ref={ref} value={value} key={uuid4()} />;
       });
 
       renderedRowColumns = { ...rowColumns };
@@ -191,13 +191,4 @@ class AnswerItemTableContentComponent extends React.Component {
   }
 }
 
-AnswerItemTableContentComponent.propTypes = {
-  data: PropTypes.isRequired,
-  edit: PropTypes.isRequired,
-  remove: PropTypes.isRequired,
-  duplicate: PropTypes.isRequired,
-  languages: PropTypes.isRequired,
-  channels: PropTypes.isRequired,
-  checkDescription: PropTypes.isRequired
-};
 export default AnswerItemTableContentComponent;

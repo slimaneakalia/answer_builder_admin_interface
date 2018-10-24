@@ -2,7 +2,6 @@
 	* @author{Slimane AKALIA} slimaneakalia@gmail.com, Linkedin.com/in/slimaneakalia
 */
 import React from "react";
-import PropTypes from "prop-types";
 
 function createFilterItem(item, id, textkey, updateFilter) {
   const classNames = item.selected
@@ -34,13 +33,6 @@ const SearchFilter = ({ label, data, textkey, updateFilter }) => {
       <blockquote>{buttons}</blockquote>
     </React.Fragment>
   );
-};
-
-SearchFilter.propTypes = {
-  label: PropTypes.string.isRequired,
-  data: PropTypes.isRequired,
-  textkey: PropTypes.string.isRequired,
-  updateFilter: PropTypes.isRequired
 };
 
 export default SearchFilter;

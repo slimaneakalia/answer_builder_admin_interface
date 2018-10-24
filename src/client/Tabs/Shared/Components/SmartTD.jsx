@@ -2,7 +2,6 @@
 	* @author{Slimane AKALIA} slimaneakalia@gmail.com, Linkedin.com/in/slimaneakalia
 */
 import React from "react";
-import PropTypes from "prop-types";
 
 const UNSELECTED_BACKGROUND_COLOR = "#c2c2c2";
 export default class SmartTD extends React.Component {
@@ -43,7 +42,3 @@ export default class SmartTD extends React.Component {
     );
   }
 }
-
-SmartTD.propTypes = {
-  value: PropTypes.string.isRequired
-};

@@ -16,7 +16,7 @@
     "no-duplicate-imports": "off",
     "linebreak-style": ["error", "windows"],
     "react/jsx-filename-extension": "off",
-    "react/prop-types": [2, { "ignore": ["children"] }],
+    "react/prop-types": "off",
     "jsx-a11y/label-has-associated-control": "off",
     "jsx-a11y/label-has-for": "off",
     "no-console": "off"

@@ -2,7 +2,6 @@
 	* @author{Slimane AKALIA} slimaneakalia@gmail.com, Linkedin.com/in/slimaneakalia
 */
 import React from "react";
-import PropTypes from "prop-types";
 import _ from "lodash";
 
 import SmartTD from "_shared/Components/SmartTD";
@@ -195,13 +194,5 @@ class CommandsTable extends React.Component {
     );
   }
 }
-CommandsTable.propTypes = {
-  data: PropTypes.isRequired,
-  duplicate: PropTypes.isRequired,
-  edit: PropTypes.isRequired,
-  remove: PropTypes.isRequired,
-  create: PropTypes.isRequired,
-  withAddItemButton: PropTypes.isRequired
-};
 
 export default CommandsTable;

@@ -3,7 +3,6 @@
 */
 import React from "react";
 import Modal from "_shared/Components/Modal";
-import PropTypes from "prop-types";
 import _ from "lodash";
 import uuid4 from "uuid/v4";
 
@@ -291,15 +290,5 @@ class EditAnswerItem extends React.Component {
     );
   }
 }
-
-EditAnswerItem.propTypes = {
-  answerItemUID: PropTypes.isRequired,
-  answerItemData: PropTypes.isRequired,
-  languages: PropTypes.isRequired,
-  channels: PropTypes.isRequired,
-  edit: PropTypes.isRequired,
-  closedModal: PropTypes.isRequired,
-  checkDescription: PropTypes.isRequired
-};
 
 export default EditAnswerItem;

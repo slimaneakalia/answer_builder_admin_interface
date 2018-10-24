@@ -2,7 +2,6 @@
 	* @author{Slimane AKALIA} slimaneakalia@gmail.com, Linkedin.com/in/slimaneakalia
 */
 import React from "react";
-import PropTypes from "prop-types";
 
 class SearchBar extends React.Component {
   constructor(props) {
@@ -49,15 +48,5 @@ class SearchBar extends React.Component {
     return searchBar;
   }
 }
-
-SearchBar.propTypes = {
-  label: PropTypes.string,
-  placeholder: PropTypes.string.isRequired,
-  onSearchClick: PropTypes.isRequired
-};
-
-SearchBar.defaultProps = {
-  label: null
-};
 
 export default SearchBar;

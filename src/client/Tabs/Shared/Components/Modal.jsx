@@ -3,7 +3,6 @@
 */
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
-import PropTypes from "prop-types";
 
 class ModalComponent extends React.Component {
   closeHandler = () => {
@@ -36,10 +35,4 @@ class ModalComponent extends React.Component {
   }
 }
 
-ModalComponent.propTypes = {
-  title: PropTypes.string.isRequired,
-  cofirmEnabled: PropTypes.bool.isRequired,
-  onConfirm: PropTypes.isRequired,
-  onClose: PropTypes.isRequired
-};
 export default ModalComponent;

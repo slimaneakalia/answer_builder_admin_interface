@@ -1,7 +1,6 @@
 const apiURL = `${window.location.href}api`;
 const POST_OPTIONS = {
-  method: "POST",
-  mode: "no-cors"
+  method: "POST"
 };
 
 console.log("Api url");
@@ -10,7 +9,13 @@ console.log(apiURL);
 const createPostRequest = (data, isJSON) => {
   const request = { ...POST_OPTIONS };
 
-  request.body = isJSON ? JSON.stringify(data) : data;
+  if (isJSON) {
+    request.body = JSON.stringify(data);
+    request.headers = {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    };
+  } else request.body = data;
   return request;
 };
 
@@ -23,7 +28,9 @@ const GETData = (path, params) => {
   return fetch(url);
 };
 
-const POSTData = (path, data, isJSON) =>
-  fetch(apiURL + path, createPostRequest(data, isJSON));
+const POSTData = (path, data, isJSON) => {
+  const request = createPostRequest(data, isJSON);
+  return fetch(apiURL + path, request);
+};
 
 export { GETData, POSTData };

@@ -2,7 +2,6 @@
 	* @author{Slimane AKALIA} slimaneakalia@gmail.com, Linkedin.com/in/slimaneakalia
 */
 import React from "react";
-import PropTypes from "prop-types";
 import { dataFields } from "_home/Components/AnswerVariablesTable";
 import Modal from "_shared/Components/Modal";
 import _ from "lodash";
@@ -209,11 +208,5 @@ class ManageAnswerVariable extends React.Component {
     );
   }
 }
-
-ManageAnswerVariable.propTypes = {
-  title: PropTypes.isRequired,
-  operation: PropTypes.isRequired,
-  closedModal: PropTypes.isRequired
-};
 
 export default ManageAnswerVariable;

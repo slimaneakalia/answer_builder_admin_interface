@@ -18,8 +18,6 @@ import fetchAnswerCodes from "_action_creators/AnswerCodes";
 import fetchAnswerItems from "_action_creators/AnswerItems";
 import fetchAnswerVariables from "_action_creators/AnswerVariables";
 import fetchCommands from "_action_creators/Commands";
-import { createBrowserHistory } from "history";
-import { syncHistoryWithStore } from "react-router-redux";
 import thunkMiddleware from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 
@@ -72,12 +70,10 @@ fetchAnswerItems(store);
 fetchAnswerVariables(store);
 fetchCommands(store);
 
-const history = syncHistoryWithStore(createBrowserHistory(), store);
-
 export default function App() {
   return (
     <Provider store={store}>
-      <Router history={history}>
+      <Router>
         <React.Fragment>
           <SideBar activeClassName={activeClassName} tabs={tabs} />
           <Route path={routes.home} exact component={HomeTab} />

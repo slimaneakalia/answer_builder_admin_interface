@@ -3,7 +3,6 @@
 */
 import React from "react";
 import Button from "_shared/Components/Button";
-import PropTypes from "prop-types";
 
 const AddItemButton = props => {
   const { children, onClick } = props;
@@ -16,7 +15,4 @@ const AddItemButton = props => {
   );
 };
 
-AddItemButton.propTypes = {
-  onClick: PropTypes.isRequired
-};
 export default AddItemButton;

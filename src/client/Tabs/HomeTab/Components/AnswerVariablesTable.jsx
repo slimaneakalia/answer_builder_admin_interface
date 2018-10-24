@@ -2,8 +2,8 @@
 	* @author{Slimane AKALIA} slimaneakalia@gmail.com, Linkedin.com/in/slimaneakalia
 */
 import React from "react";
-import PropTypes from "prop-types";
 import _ from "lodash";
+import uuid4 from "uuid/v4";
 import SmartTD from "_shared/Components/SmartTD";
 import Button from "_shared/Components/Button";
 import ManageAnswerVariable from "_home//Components/ManageAnswerVariable";
@@ -69,7 +69,9 @@ class AnswerVariablesTable extends React.Component {
       dataFields.forEach(key => {
         ref = React.createRef();
         refs[key] = ref;
-        rowColumns[key] = <SmartTD ref={ref} value={answerVariableData[key]} />;
+        rowColumns[key] = (
+          <SmartTD ref={ref} value={answerVariableData[key]} key={uuid4()} />
+        );
       });
 
       renderedRowColumns = { ...rowColumns };
@@ -214,14 +216,5 @@ class AnswerVariablesTable extends React.Component {
     );
   }
 }
-
-AnswerVariablesTable.propTypes = {
-  data: PropTypes.isRequired,
-  duplicate: PropTypes.isRequired,
-  edit: PropTypes.isRequired,
-  remove: PropTypes.isRequired,
-  create: PropTypes.isRequired,
-  withAddItemButton: PropTypes.isRequired
-};
 
 export default AnswerVariablesTable;

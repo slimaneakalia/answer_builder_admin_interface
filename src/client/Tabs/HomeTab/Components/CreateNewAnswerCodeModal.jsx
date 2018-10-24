@@ -3,7 +3,6 @@
 */
 import React from "react";
 import Modal from "_shared/Components/Modal";
-import PropTypes from "prop-types";
 import uuid4 from "uuid/v4";
 import _ from "lodash";
 
@@ -211,8 +210,4 @@ class CreateNewAnswerCodeModal extends React.Component {
   }
 }
 
-CreateNewAnswerCodeModal.propTypes = {
-  createNewAnswerCode: PropTypes.isRequired,
-  closeModal: PropTypes.isRequired
-};
 export default CreateNewAnswerCodeModal;

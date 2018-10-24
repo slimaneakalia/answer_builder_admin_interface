@@ -3,7 +3,7 @@
 */
 import React from "react";
 import { NavLink } from "react-router-dom";
-import PropTypes from "prop-types";
+import uuid4 from "uuid/v4";
 
 function sayHello() {
   console.log("Piw piw");
@@ -11,7 +11,7 @@ function sayHello() {
 
 function SideBar({ tabs, activeClassName }) {
   const links = tabs.map(tab => (
-    <li>
+    <li key={uuid4()}>
       <NavLink
         to={tab.link}
         exact
@@ -42,10 +42,5 @@ function SideBar({ tabs, activeClassName }) {
     </div>
   );
 }
-
-SideBar.propTypes = {
-  tabs: PropTypes.isRequired,
-  activeClassName: PropTypes.string.isRequired
-};
 
 export default SideBar;
