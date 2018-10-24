@@ -38,3 +38,20 @@ export function editCode(newData, dispatch) {
       editCode(newData, dispatch);
     });
 }
+
+// request structure : { Answer_UID: String }
+export function removeCode(request, dispatch) {
+  POSTData("/answers/remove", request, true)
+    .then(() => {
+      const action = {
+        type: ActionTypes.REMOVE_CODE,
+        Answer_UID: request.Answer_UID
+      };
+      dispatch(action);
+    })
+    .catch(err => {
+      console.log("removeCode error :");
+      console.log(err);
+      removeCode(request, dispatch);
+    });
+}

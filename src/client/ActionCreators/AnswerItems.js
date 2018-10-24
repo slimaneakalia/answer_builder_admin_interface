@@ -1,4 +1,4 @@
-import { GETData } from "_action_creators/ApiMiddleware";
+import { GETData, POSTData } from "_action_creators/ApiMiddleware";
 import ActionTypes from "_action_creators/ActionTypes";
 import _ from "lodash";
 
@@ -63,4 +63,23 @@ export function fetchAnswerItemsByText(text, dispatch) {
   };
 
   dispatch(asyncAction);
+}
+
+// answerItemData structure : API and Database structure
+export function createItem(answerItemData, dispatch) {
+  return new Promise((resolve, reject) => {
+    const asyncAction = (dispatchAsync, getState) => {
+      POSTData("/answer_items/add_item", answerItemData, true)
+        .then(() => {
+          console.log("createItem resolving");
+          resolve();
+          fetchAnswerItemsByCriterias(getState(), dispatchAsync);
+        })
+        .catch(jsonError => {
+          reject(jsonError.error);
+        });
+    };
+
+    dispatch(asyncAction);
+  });
 }

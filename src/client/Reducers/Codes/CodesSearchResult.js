@@ -24,6 +24,12 @@ export default function CodesSearchResult(state = {}, action) {
       ]);
 
       return newState;
+
+    case ActionTypes.REMOVE_CODE:
+      newState = { ...state };
+      delete newState[action.Answer_UID];
+      return newState;
+
     default:
       return state;
   }

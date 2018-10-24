@@ -12,7 +12,8 @@ const ActionTypes = keyMirror({
   UPDATE_CHANNEL_FILTER: null,
   UPDATE_LANGUAGE_FILTER: null,
 
-  EDIT_CODE: null
+  EDIT_CODE: null,
+  REMOVE_CODE: null
 });
 
 export default ActionTypes;

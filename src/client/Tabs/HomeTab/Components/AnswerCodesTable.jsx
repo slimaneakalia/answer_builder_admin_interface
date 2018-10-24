@@ -63,6 +63,11 @@ class AnswerCodesTable extends React.Component {
   creatingNewAnswerItem = event => {
     event.preventDefault();
     const targetUID = event.currentTarget.getAttribute("uid");
+    console.log(
+      `this.setState({ addAnswerItem: true, targetAnswerCodeUID: ${targetUID} });`
+    );
+    console.log("current state");
+    console.log(this.state);
     this.setState({ addAnswerItem: true, targetAnswerCodeUID: targetUID });
   };
 
@@ -158,6 +163,29 @@ class AnswerCodesTable extends React.Component {
     this.setState({ addAnswerCode: false });
   };
 
+  createNewAnswerItemClass = answerItemData => {
+    const { createNewAnswerItem } = this.props;
+    return new Promise((resolve, reject) => {
+      createNewAnswerItem(answerItemData)
+        .then(() => {
+          this.setState({ addAnswerItem: false, targetAnswerCodeUID: null });
+        })
+        .catch(reject);
+    });
+  };
+
+  createNewAnswerCodeClass = answerCodeData => {
+    const { createNewAnswerCode } = this.props;
+
+    return new Promise((resolve, reject) => {
+      createNewAnswerCode(answerCodeData)
+        .then(() => {
+          this.setState({ addAnswerCode: false });
+        })
+        .catch(reject);
+    });
+  };
+
   render() {
     this.rows = {};
     const {
@@ -165,8 +193,6 @@ class AnswerCodesTable extends React.Component {
       languages,
       channels,
       checkDescription,
-      createNewAnswerItem,
-      createNewAnswerCode,
       withAddItemButton
     } = this.props;
     const { addAnswerItem, targetAnswerCodeUID, addAnswerCode } = this.state;
@@ -196,6 +222,9 @@ class AnswerCodesTable extends React.Component {
       finalContent = <NoResultLabel />;
     }
 
+    console.log("new state");
+    console.log(this.state);
+
     return (
       <React.Fragment>
         {finalContent}
@@ -210,14 +239,14 @@ class AnswerCodesTable extends React.Component {
             closedModal={this.closedAddAnswerItemModal}
             languages={languages}
             channels={channels}
-            createNewAnswerItem={createNewAnswerItem}
+            createNewAnswerItem={this.createNewAnswerItemClass}
             checkDescription={checkDescription}
           />
         )}
 
         {addAnswerCode && (
           <CreateNewAnswerCodeModal
-            createNewAnswerCode={createNewAnswerCode}
+            createNewAnswerCode={this.createNewAnswerCodeClass}
             closedModal={this.closedAddAnswerCodeModal}
           />
         )}

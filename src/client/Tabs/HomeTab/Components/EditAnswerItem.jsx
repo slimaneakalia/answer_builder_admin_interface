@@ -184,13 +184,13 @@ class EditAnswerItem extends React.Component {
     } = this.state;
 
     const languagesSelect = Object.keys(languages).map(key => (
-      <option key={key} value={key} selected={key === Language}>
+      <option key={key} value={key}>
         {languages[key].Language_label}
       </option>
     ));
 
     const channelsSelect = Object.keys(channels).map(key => (
-      <option key={key} value={key} selected={key === Channel}>
+      <option key={key} value={key}>
         {channels[key].Channel_label}
       </option>
     ));
@@ -208,7 +208,7 @@ class EditAnswerItem extends React.Component {
                   type="text"
                   className="form-control"
                   id="Name"
-                  value={Name}
+                  value={Name || ""}
                   onChange={this.handleChange}
                 />
                 {this.createErrorDivs("Name")}
@@ -224,6 +224,7 @@ class EditAnswerItem extends React.Component {
                   id="Language"
                   className="form-control"
                   onChange={this.handleChange}
+                  value={Language}
                 >
                   {languagesSelect}
                 </select>
@@ -239,6 +240,7 @@ class EditAnswerItem extends React.Component {
                   id="Channel"
                   className="form-control"
                   onChange={this.handleChange}
+                  value={Channel}
                 >
                   {channelsSelect}
                 </select>

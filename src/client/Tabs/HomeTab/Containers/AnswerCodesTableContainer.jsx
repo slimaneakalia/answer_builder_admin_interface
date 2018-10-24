@@ -4,10 +4,12 @@
 import AnswerCodesTable from "_home/Components/AnswerCodesTable";
 import checkDescription from "_shared/Helpers/AnswerItemHelper";
 import { connect } from "react-redux";
-import { editCode } from "_action_creators/AnswerCodes";
+import { editCode, removeCode } from "_action_creators/AnswerCodes";
+import { createItem } from "_action_creators/AnswerItems";
 
 const remove = (answerCodeUID, dispatch) => {
   console.log(`UID to remove : ${answerCodeUID}`);
+  removeCode({ Answer_UID: answerCodeUID }, dispatch);
 };
 
 const editAnswerCode = (answerCodeUID, code, description, dispatch) => {
@@ -22,14 +24,8 @@ const editAnswerCode = (answerCodeUID, code, description, dispatch) => {
   );
 };
 
-const createNewAnswerItem = (answerItemData, dispatch) => {
-  console.log("New AnswerItem to add :");
-  console.log(answerItemData);
-  return new Promise(resolve => {
-    resolve();
-    // reject("Internal Server error : Minoucha");
-  });
-};
+const createNewAnswerItem = (answerItemData, dispatch) =>
+  createItem(answerItemData, dispatch);
 
 const createNewAnswerCode = (answerCodeData, dispatch) => {
   console.log("New AnswerCode to add :");

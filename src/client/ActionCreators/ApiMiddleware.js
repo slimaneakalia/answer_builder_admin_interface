@@ -30,7 +30,14 @@ const GETData = (path, params) => {
 
 const POSTData = (path, data, isJSON) => {
   const request = createPostRequest(data, isJSON);
-  return fetch(apiURL + path, request);
+  return fetch(apiURL + path, request).then(response => {
+    if (!response.ok) {
+      return response.json().then(jsonResponse => {
+        throw jsonResponse;
+      });
+    }
+    return response.json();
+  });
 };
 
 export { GETData, POSTData };

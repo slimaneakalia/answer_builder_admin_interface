@@ -62,11 +62,18 @@ function update(answer) {
     });
 }
 
+function remove(answer) {
+  return knexMySql(tableName)
+    .where("Answer_UID", answer.Answer_UID)
+    .del();
+}
+
 module.exports = {
   getAll,
   findByAnswerItems,
   updateCode,
   updateDescription,
   update,
+  remove,
   find
 };
