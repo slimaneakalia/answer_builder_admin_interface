@@ -66,3 +66,25 @@ export function updateCurrentCode(newCode, dispatch) {
 
   dispatch(asyncAction);
 }
+
+export function createNewAnswerCode(answerCodeData, dispatch) {
+  console.log("New AnswerCode to add :");
+  console.log(answerCodeData);
+
+  return new Promise((resolve, reject) => {
+    const asyncAction = (dispatchAsync, getState) => {
+      POSTData("/answers/add_code", answerCodeData, true)
+        .then(() => {
+          resolve();
+          const { Search } = getState();
+          fetchAnswerCodesByText(Search.text, dispatch);
+        })
+        .catch(error => {
+          if (typeof error === "object") reject(error.error);
+          else reject(error);
+        });
+    };
+
+    dispatch(asyncAction);
+  });
+}

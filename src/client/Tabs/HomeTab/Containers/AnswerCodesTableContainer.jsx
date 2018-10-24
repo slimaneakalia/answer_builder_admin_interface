@@ -7,12 +7,12 @@ import { connect } from "react-redux";
 import {
   editCode,
   removeCode,
-  updateCurrentCode
+  updateCurrentCode,
+  createNewAnswerCode
 } from "_action_creators/AnswerCodes";
 import { createItem } from "_action_creators/AnswerItems";
 
 const remove = (answerCodeUID, dispatch) => {
-  console.log(`UID to remove : ${answerCodeUID}`);
   removeCode({ Answer_UID: answerCodeUID }, dispatch);
 };
 
@@ -21,15 +21,6 @@ const editAnswerCode = (answerCodeUID, code, description, dispatch) => {
     { Answer_UID: answerCodeUID, Code: code, Description: description },
     dispatch
   );
-};
-
-const createNewAnswerCode = (answerCodeData, dispatch) => {
-  console.log("New AnswerCode to add :");
-  console.log(answerCodeData);
-  return new Promise(resolve => {
-    resolve();
-    // reject("Internal Server error : Minoucha");
-  });
 };
 
 const mapStateToProps = state => ({

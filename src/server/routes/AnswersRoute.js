@@ -35,7 +35,6 @@ router.post("/edit_description", (req, res) => {
 });
 
 router.post("/edit_all", (req, res) => {
-  console.log("New request on /edit/all");
   if (
     _.every(["Answer_UID", "Code", "Description"], _.partial(_.has, req.body))
   )
@@ -47,6 +46,12 @@ router.post("/remove", (req, res) => {
   if (req.body.Answer_UID) {
     routesMiddleware.sendDBResult(res, AnswersModel.remove(req.body));
   } else res.sendStatus(400);
+});
+
+router.post("/add_code", (req, res) => {
+  if (_.every(["Code", "Description"], _.partial(_.has, req.body)))
+    routesMiddleware.sendDBResult(res, AnswersModel.addCode(req.body));
+  else res.sendStatus(400);
 });
 
 module.exports = router;

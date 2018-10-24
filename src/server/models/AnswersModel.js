@@ -68,6 +68,10 @@ function remove(answer) {
     .del();
 }
 
+function addCode(answer) {
+  return knexMySql(tableName).insert(answer);
+}
+
 module.exports = {
   getAll,
   findByAnswerItems,
@@ -75,5 +79,6 @@ module.exports = {
   updateDescription,
   update,
   remove,
-  find
+  find,
+  addCode
 };
