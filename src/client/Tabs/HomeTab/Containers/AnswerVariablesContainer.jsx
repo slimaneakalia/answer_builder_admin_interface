@@ -6,17 +6,9 @@ import AnswerVariablesTable from "_home/Components/AnswerVariablesTable";
 import {
   editVariable,
   duplicateVariable,
-  removeVariable
+  removeVariable,
+  createVariable
 } from "_action_creators/AnswerVariables";
-
-const create = answerVariableData => {
-  console.log("New AnswerVariable to add :");
-  console.log(answerVariableData);
-  return new Promise(resolve => {
-    resolve();
-    // reject("Internal Server error : Minoucha");
-  });
-};
 
 const mapStateToProps = state => ({
   data: state.Variables.VariablesSearchResult
@@ -27,7 +19,7 @@ const mapDispatchToProps = dispatch => ({
   duplicate: answerVariableUID =>
     duplicateVariable(answerVariableUID, dispatch),
   remove: answerVariableUID => removeVariable(answerVariableUID, dispatch),
-  create: answerVariableData => create(answerVariableData, dispatch)
+  create: answerVariableData => createVariable(answerVariableData, dispatch)
 });
 
 export default connect(

@@ -23,6 +23,7 @@ class SearchBar extends React.Component {
           className="form-control"
           placeholder={placeholder}
           ref={this.searchBarRef}
+          onChange={this.handleClick}
         />
         <span className="input-group-btn">
           <button

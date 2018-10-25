@@ -18,4 +18,16 @@ export function initSearchCriterias(store) {
 
   action = { type: ActionTypes.UPDATE_SEARCH_NAME, name: "" };
   store.dispatch(action);
+
+  action = { type: ActionTypes.UPDATE_SEARCH_VALUE, value: "" };
+  store.dispatch(action);
+
+  action = { type: ActionTypes.UPDATE_SEARCH_GROUP, group: "" };
+  store.dispatch(action);
+
+  action = { type: ActionTypes.UPDATE_SEARCH_SUBGROUP, subGroup: "" };
+  store.dispatch(action);
+
+  action = { type: ActionTypes.UPDATE_SEARCH_DESCRIPTION, description: "" };
+  store.dispatch(action);
 }

@@ -116,12 +116,30 @@ function simulate(text) {
   });
 }
 
-function find(request) {
-  return knexMySql(tableName)
-    .where("Name", "like", `%${request}%`)
-    .orWhere("Value", "like", `%${request}%`)
-    .orWhere("_Group", "like", `%${request}%`)
-    .orWhere("SubGroup", "like", `%${request}%`);
+function getAllByCriterias(queryParam) {
+  const query = { ...queryParam };
+  let result = knexMySql(tableName);
+  if (query.name) {
+    result = result.where("Name", "like", `%${query.name}%`);
+    delete query.name;
+  }
+
+  if (query.value) {
+    result = result.where("Value", "like", `%${query.value}%`);
+    delete query.value;
+  }
+
+  if (query.group) {
+    result = result.where("_Group", "like", `%${query.group}%`);
+    delete query.group;
+  }
+
+  if (query.subGroup) {
+    result = result.where("SubGroup", "like", `%${query.subGroup}%`);
+    delete query.subGroup;
+  }
+
+  return result.where(query);
 }
 
 function addVariable(variable) {
@@ -153,11 +171,20 @@ function removeVariable(variableUID) {
     .del();
 }
 
+function find(request) {
+  return knexMySql(tableName)
+    .where("Name", "like", `%${request}%`)
+    .orWhere("Value", "like", `%${request}%`)
+    .orWhere("_Group", "like", `%${request}%`)
+    .orWhere("SubGroup", "like", `%${request}%`);
+}
+
 module.exports = {
   getAll,
   findByAnswerItems,
   editVariable,
   simulate,
+  getAllByCriterias,
   find,
   addVariable,
   duplicateVariable,

@@ -19,7 +19,8 @@ router.post("/edit_variable", (req, res) => {
     "Name",
     "Value",
     "_Group",
-    "SubGroup"
+    "SubGroup",
+    "Activated"
   ];
 
   if (_.every(requiredFields, _.partial(_.has, req.body))) {
@@ -41,6 +42,14 @@ router.post("/simulate", (req, res) => {
 });
 
 // Third use case
+router.get("/all_by_criterias", (req, res) => {
+  const { query } = req;
+  routesMiddleware.sendDBResult(
+    res,
+    AnswerVariablesModel.getAllByCriterias(query)
+  );
+});
+
 router.get("/find", (req, res) => {
   let { value } = req.query;
   if (typeof value === "undefined" || value == null) value = "";
@@ -48,7 +57,7 @@ router.get("/find", (req, res) => {
 });
 
 router.post("/add_variable", (req, res) => {
-  const requiredFields = ["Name", "Value", "_Group", "SubGroup"];
+  const requiredFields = ["Name", "Value", "_Group", "SubGroup", "Activated"];
 
   if (_.every(requiredFields, _.partial(_.has, req.body))) {
     routesMiddleware.sendDBResult(

@@ -8,6 +8,7 @@ import SmartTD from "_shared/Components/SmartTD";
 import Button from "_shared/Components/Button";
 import ManageCommand from "_commands/Components/ManageCommand";
 import AddItemButton from "_shared/Components/AddItemButton";
+import uuid4 from "uuid/v4";
 
 export const dataFields = ["Name", "Text", "Description"];
 
@@ -67,7 +68,9 @@ class CommandsTable extends React.Component {
       dataFields.forEach(key => {
         ref = React.createRef();
         refs[key] = ref;
-        rowColumns[key] = <SmartTD ref={ref} value={commandData[key]} />;
+        rowColumns[key] = (
+          <SmartTD ref={ref} value={commandData[key]} key={uuid4()} />
+        );
       });
 
       renderedRowColumns = { ...rowColumns };

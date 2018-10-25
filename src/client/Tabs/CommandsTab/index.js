@@ -4,20 +4,34 @@ import WrapTabContent from "_shared/Containers/WrapTabContent";
 import CommandsTableContainer from "_commands/Containers/CommandsTableContainer";
 import SearchTextContainer from "_shared/Containers/SearchTextContainer";
 import WrapTableContainer from "_shared/Containers/WrapTableContainer";
+import { searchCommandByKey } from "_action_creators/Commands";
+import ActionTypes from "_action_creators/ActionTypes";
 
-const searchByName = (e, dispatch) => {
-  console.log("searchByName event was detected !");
-  console.log(e);
+const searchByName = (input, dispatch) => {
+  searchCommandByKey(
+    "name",
+    input.value,
+    dispatch,
+    ActionTypes.UPDATE_SEARCH_NAME
+  );
 };
 
-const searchByText = (e, dispatch) => {
-  console.log("searchByText event was detected !");
-  console.log(e);
+const searchByText = (input, dispatch) => {
+  searchCommandByKey(
+    "text",
+    input.value,
+    dispatch,
+    ActionTypes.UPDATE_SEARCH_TEXT
+  );
 };
 
-const searchByDescription = (e, dispatch) => {
-  console.log("searchByDescription event was detected !");
-  console.log(e);
+const searchByDescription = (input, dispatch) => {
+  searchCommandByKey(
+    "description",
+    input.value,
+    dispatch,
+    ActionTypes.UPDATE_SEARCH_DESCRIPTION
+  );
 };
 
 const CommandsTable = WrapTableContainer(

@@ -4,25 +4,43 @@ import WrapTabContent from "_shared/Containers/WrapTabContent";
 import SearchTextContainer from "_shared/Containers/SearchTextContainer";
 import AnswerVariablesContainer from "_home/Containers/AnswerVariablesContainer";
 import WrapTableContainer from "_shared/Containers/WrapTableContainer";
+import { searchVariableByKey } from "_action_creators/AnswerVariables";
+import ActionTypes from "_action_creators/ActionTypes";
 
-const searchByName = (e, dispatch) => {
-  console.log("searchByName event was detected !");
-  console.log(e);
+const searchByName = (input, dispatch) => {
+  searchVariableByKey(
+    "name",
+    input.value,
+    dispatch,
+    ActionTypes.UPDATE_SEARCH_NAME
+  );
 };
 
-const searchByValue = (e, dispatch) => {
-  console.log("searchByValue event was detected !");
-  console.log(e);
+const searchByValue = (input, dispatch) => {
+  searchVariableByKey(
+    "value",
+    input.value,
+    dispatch,
+    ActionTypes.UPDATE_SEARCH_VALUE
+  );
 };
 
-const searchByGroup = (e, dispatch) => {
-  console.log("searchByGroup event was detected !");
-  console.log(e);
+const searchByGroup = (input, dispatch) => {
+  searchVariableByKey(
+    "group",
+    input.value,
+    dispatch,
+    ActionTypes.UPDATE_SEARCH_GROUP
+  );
 };
 
-const searchBySubGroup = (e, dispatch) => {
-  console.log("searchBySubGroup event was detected !");
-  console.log(e);
+const searchBySubGroup = (input, dispatch) => {
+  searchVariableByKey(
+    "subGroup",
+    input.value,
+    dispatch,
+    ActionTypes.UPDATE_SEARCH_SUBGROUP
+  );
 };
 
 const AnswerVariables = WrapTableContainer(
